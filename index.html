@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#6b4f2a">
+<title>Oregon Pigment Project Field Guide</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--ink:#29251f;--muted:#756d61;--paper:#f5f0e6;--card:#fffdf8;--line:#d9d0c1;--accent:#76542d;--accent2:#b9894a;--danger:#9a3d2f}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:#30291f;color:white;padding:18px 16px;position:sticky;top:0;z-index:5}
+h1{margin:0;font-family:Georgia,serif;font-size:23px}header p{margin:4px 0 0;color:#d9cfbd;font-size:13px}
+nav{display:flex;gap:8px;margin-top:14px;overflow:auto}button,.button{border:0;border-radius:9px;padding:10px 13px;font-weight:650;background:var(--accent);color:#fff;cursor:pointer}.secondary{background:#e8dfd0;color:var(--ink)}.danger{background:var(--danger)}
+main{max-width:1100px;margin:auto;padding:16px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.toolbar input{flex:1;min-width:220px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fffdf9;color:var(--ink);font:inherit}textarea{min-height:90px;resize:vertical}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:14px;box-shadow:0 2px 10px #4b38200b}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.full{grid-column:1/-1}label{font-size:12px;font-weight:750;color:var(--muted);display:block;margin-bottom:5px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}.gallery img{width:100%;height:130px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
+.specimen{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:start}.thumb{width:130px;height:130px;object-fit:cover;border-radius:10px;background:#e9e0d0}
+.specimen h3{margin:0 0 5px;font-family:Georgia,serif}.meta{color:var(--muted);font-size:13px}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.tag{background:#eee5d7;border-radius:99px;padding:4px 8px;font-size:11px}
+.hidden{display:none!important}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.right{margin-left:auto}.notice{padding:10px;border-radius:9px;background:#efe5d2;font-size:13px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.specimen{grid-template-columns:90px 1fr}.thumb{width:90px;height:90px}}
+</style>
+</head>
+<body>
+<header>
+<h1>Oregon Pigment Project Field Guide</h1><p>Private collection + public catalog · raw material → processed pigment → finished sample</p>
+<nav><button onclick="show('list')">Collection</button><button onclick="show('form')">+ New Specimen</button><button class="secondary" onclick="backup()">Private Backup</button>
+<button class="secondary" onclick="exportPublic()">Export Public Catalog</button><label class="button secondary" style="cursor:pointer">Import <input id="import" type="file" accept=".json" hidden></label></nav>
+</header>
+<main>
+<section id="listView">
+<div class="toolbar">
+<input id="search" placeholder="Search ID, material, place, color, tags…">
+<select id="filter"><option value="">All specimens</option><option>Raw material</option><option>Processed pigment</option><option>Finished sample</option></select>
+<select id="visibility"><option value="all">My private collection</option><option value="public">Public catalog</option><option value="shared">Shared with public</option></select>
+</div>
+<div id="list"></div>
+</section>
+
+<section id="formView" class="hidden">
+<div class="card">
+<div class="row"><h2 id="formTitle" style="font-family:Georgia,serif">New specimen</h2><span class="right meta" id="specimenId"></span></div>
+<div class="grid">
+<div><label>Catalog stage</label><select id="stage"><option>Raw material</option><option>Processed pigment</option><option>Finished sample</option></select></div>
+<div><label>Collection date</label><input id="date" type="date"></div>
+<div><label>Collector</label><input id="collector" placeholder="Name / initials"></div>
+<div><label>Source / provenance</label><input id="source" placeholder="Natural outcrop, road cut, mine tailings, purchased, etc."></div>
+<div class="full"><label>Specimen name / working name</label><input id="name" placeholder="e.g. Red Ochre — Smith Rock"></div>
+<div><label>Material / suspected mineral</label><input id="material" placeholder="Iron oxide, clay, basalt…"></div>
+<div><label>Geologic setting</label><input id="geology" placeholder="Basalt flow, river deposit, weathered zone…"></div>
+<div><label>Locality / nearest place</label><input id="locality"></div>
+<div><label>GPS latitude</label><input id="lat" inputmode="decimal"></div>
+<div><label>GPS longitude</label><input id="lon" inputmode="decimal"></div>
+<div class="full"><button type="button" onclick="locate()">📍 Capture current GPS location</button> <span id="locStatus" class="meta"></span></div>
+<div><label>Color (field)</label><input id="color" placeholder="red-brown, yellow ochre…"></div>
+<div><label>Color code / Munsell / HEX</label><input id="colorCode"></div>
+<div><label>Texture / grain</label><input id="texture"></div>
+<div><label>Luster</label><select id="luster"><option></option><option>Earthy</option><option>Dull</option><option>Glassy</option><option>Metallic</option><option>Pearly</option><option>Other</option></select></div>
+<div><label>Hardness</label><input id="hardness" placeholder="Mohs / scratch observations"></div>
+<div><label>Streak</label><input id="streak"></div>
+<div><label>Magnetic</label><select id="magnetic"><option></option><option>No</option><option>Weak</option><option>Strong</option></select></div>
+<div><label>Acid / vinegar reaction</label><input id="reaction"></div>
+<div><label>Moisture / condition</label><input id="condition" placeholder="Dry, damp, crumbly, consolidated…"></div>
+<div><label>Approx. quantity</label><input id="quantity" placeholder="Weight / volume / bag count"></div>
+<div><label>Storage location</label><input id="storage" placeholder="Box 01 / Jar R-004"></div>
+<div class="full">
+<label><input id="publicShare" type="checkbox" style="width:auto;margin-right:7px"> Include this specimen in the public catalog</label>
+<div class="meta">Only information marked public will be exported for the public catalog. Your private database remains on your device.</div>
+</div>
+<div class="full"><label>Collection notes</label><textarea id="notes" placeholder="What did the outcrop look like? Associated rocks? Vein, soil horizon, stream sediment?"></textarea></div>
+</div>
+</div>
+
+<div class="card">
+<h2 style="font-family:Georgia,serif">Photographs</h2>
+<p class="meta">Take a field photo, close-up, scale photo, and processed-pigment photo. Photos stay in this device's catalog.</p>
+<input id="photos" type="file" accept="image/*" capture="environment" multiple>
+<div id="photoGallery" class="gallery" style="margin-top:10px"></div>
+</div>
+
+<div class="card">
+<h2 style="font-family:Georgia,serif">Pigment processing</h2>
+<div class="grid">
+<div><label>Processing method</label><input id="process" placeholder="Dry → crush → sieve → wash → settle → dry…"></div>
+<div><label>Particle / sieve size</label><input id="particle"></div>
+<div><label>Yield</label><input id="yield" placeholder="e.g. 18 g pigment from 100 g raw material"></div>
+<div><label>Pigment color</label><input id="pigmentColor"></div>
+<div><label>Binder tested</label><input id="binder" placeholder="Gum arabic, egg, oil, casein…"></div>
+<div><label>Lightfastness test</label><input id="lightfast" placeholder="Method / result / duration"></div>
+<div class="full"><label>Test / paint notes</label><textarea id="testNotes"></textarea></div>
+<div class="full"><label>Tags</label><input id="tags" placeholder="ochre, iron, coastal, Oregon, high-yield"></div>
+</div>
+</div>
+
+<div class="row"><button onclick="save()">Save specimen</button><button class="secondary" onclick="show('list')">Cancel</button><button id="deleteBtn" class="danger right hidden" onclick="removeCurrent()">Delete</button></div>
+</section>
+</main>
+<script>
+const DB='pigmentCatalogV1', STORE='specimens'; let current=null, photoFiles=[];
+const $=id=>document.getElementById(id);
+function db(){return new Promise((res,rej)=>{let r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE,{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function all(){let d=await db();return new Promise((res,rej)=>{let r=d.transaction(STORE).objectStore(STORE).getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function put(x){let d=await db();return new Promise((res,rej)=>{let r=d.transaction(STORE,'readwrite').objectStore(STORE).put(x);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+async function del(id){let d=await db();return new Promise((res,rej)=>{let r=d.transaction(STORE,'readwrite').objectStore(STORE).delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+function newId(){let d=new Date(), n=String(Math.floor(Math.random()*9000)+1000);return `OR-${d.getFullYear()}-${n}`}
+function show(which,id){$('listView').classList.toggle('hidden',which!=='list');$('formView').classList.toggle('hidden',which!=='form'); if(which==='list')render(); else openForm(id)}
+async function render(){
+let q=$('search').value.toLowerCase(), f=$('filter').value, v=$('visibility').value;
+let arr=(await all()).filter(x=>(!f||x.stage===f)&&JSON.stringify(x).toLowerCase().includes(q));
+if(v==='public') arr=arr.filter(x=>x.publicShare);
+if(v==='shared') arr=arr.filter(x=>x.publicShare);
+arr.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+$('list').innerHTML=arr.length?arr.map(x=>`<div class="card specimen"><img class="thumb" src="${x.photos?.[0]||''}" onerror="this.style.visibility='hidden'"><div><div class="meta">${x.id} · ${x.stage} · ${x.date||'No date'} ${x.publicShare?'· PUBLIC':''}</div><h3>${esc(x.name||'Unnamed specimen')}</h3><div>${esc(x.material||'Unknown material')} · ${esc(x.locality||'No locality')}</div><div class="meta">${x.lat&&x.lon?'GPS: '+x.lat+', '+x.lon:''}</div><div class="tags">${(x.tags||'').split(',').filter(Boolean).map(t=>`<span class="tag">${esc(t.trim())}</span>`).join('')}</div><div style="margin-top:10px"><button onclick="show('form','${x.id}')">Open</button></div></div></div>`).join(''):'<div class="notice">No specimens here yet.</div>'}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function fields(){return ['stage','date','collector','source','name','material','geology','locality','lat','lon','color','colorCode','texture','luster','hardness','streak','magnetic','reaction','condition','quantity','storage','notes','process','particle','yield','pigmentColor','binder','lightfast','testNotes','tags']}
+function openForm(id){current=null;photoFiles=[]; $('formTitle').textContent=id?'Edit specimen':'New specimen';$('publicShare').checked=false;$('deleteBtn').classList.toggle('hidden',!id);let x=null; if(id) all().then(a=>{x=a.find(z=>z.id===id);fill(x)}); else fill({id:newId(),date:new Date().toISOString().slice(0,10),stage:'Raw material',photos:[],publicShare:false})}
+function fill(x){current=x; $('specimenId').textContent=x.id;fields().forEach(k=>$(k).value=x[k]??'');$('publicShare').checked=!!x.publicShare;renderPhotos(x.photos||[])}
+function renderPhotos(p){$('photoGallery').innerHTML=p.map((s,i)=>`<div><img src="${s}"><button class="danger" style="margin-top:4px;width:100%" onclick="photoFiles.splice(${i},1);current.photos.splice(${i},1);renderPhotos(current.photos)">Remove</button></div>`).join('')}
+$('photos').onchange=async e=>{for(const f of e.target.files){let data=await resize(f);photoFiles.push(data);current.photos.push(data)}renderPhotos(current.photos);e.target.value=''}
+function resize(file){return new Promise(res=>{let im=new Image(),c=document.createElement('canvas'),r=new FileReader();r.onload=()=>{im.onload=()=>{let max=1600,s=Math.min(1,max/Math.max(im.width,im.height));c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.82))};im.src=r.result};r.readAsDataURL(file)})}
+async function save(){let x={...(current||{}),id:$('specimenId').textContent,photos:current.photos||[]};fields().forEach(k=>x[k]=$(k).value);x.publicShare=$('publicShare').checked;x.updated=new Date().toISOString();await put(x);show('list')}
+async function removeCurrent(){if(confirm('Delete this specimen permanently from this device?')){await del(current.id);show('list')}}
+function locate(){if(!navigator.geolocation){$('locStatus').textContent='GPS unavailable';return}$('locStatus').textContent='Requesting location…';navigator.geolocation.getCurrentPosition(p=>{$('lat').value=p.coords.latitude.toFixed(6);$('lon').value=p.coords.longitude.toFixed(6);$('locStatus').textContent='Location captured';},e=>$('locStatus').textContent='Could not capture: '+e.message,{enableHighAccuracy:true,timeout:10000})}
+async function backup(){let data=JSON.stringify(await all(),null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download='pigment-catalog-backup.json';a.click()}
+$('import').onchange=async e=>{let t=await e.target.files[0].text();try{for(const x of JSON.parse(t))await put(x);alert('Import complete');render()}catch(err){alert('Invalid backup file')}}
+$('search').oninput=render;$('filter').onchange=render;$('visibility').onchange=render;
+async function exportPublic(){
+let arr=(await all()).filter(x=>x.publicShare).map(x=>({
+id:x.id,stage:x.stage,date:x.date,name:x.name,material:x.material,geology:x.geology,
+locality:x.locality,lat:x.lat,lon:x.lon,color:x.color,colorCode:x.colorCode,texture:x.texture,
+luster:x.luster,hardness:x.hardness,streak:x.streak,magnetic:x.magnetic,reaction:x.reaction,
+process:x.process,particle:x.particle,yield:x.yield,pigmentColor:x.pigmentColor,binder:x.binder,
+lightfast:x.lightfast,tags:x.tags,photos:x.photos,notes:x.notes
+}));
+let data=JSON.stringify({project:'Oregon Pigment Project Field Guide',exported:new Date().toISOString(),specimens:arr},null,2);
+let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download='oregon-pigment-public-catalog.json';a.click()
+}
+render();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body></html>
