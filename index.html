@@ -30,10 +30,6 @@ body{
   font-family:Arial,Helvetica,sans-serif;
 }
 
-/* =========================
-   HERO
-   ========================= */
-
 header{
   background:var(--brown);
   color:#fff;
@@ -74,9 +70,7 @@ header{
     );
 }
 
-/* =========================
-   LOGIN BAR
-   ========================= */
+/* ACCOUNT BAR */
 
 .auth-area{
   position:absolute;
@@ -137,19 +131,16 @@ header{
   border-color:#fff;
 }
 
-/* =========================
-   HERO CONTENT
-   ========================= */
+/* HERO TEXT */
 
 .hero-content{
   position:absolute;
-
   z-index:10;
 
   left:50%;
-  transform:translateX(-50%);
+  top:50%;
 
-  bottom:34px;
+  transform:translate(-50%,-39%);
 
   width:92%;
   max-width:1200px;
@@ -166,7 +157,7 @@ header{
 
   color:#f0dfcb;
 
-  margin-bottom:18px;
+  margin-bottom:16px;
 }
 
 .hero h1{
@@ -180,7 +171,7 @@ header{
 
   letter-spacing:-.025em;
 
-  margin:0 0 18px;
+  margin:0 0 17px;
 
   color:#fffaf2;
 
@@ -200,9 +191,7 @@ header{
   color:#f0e6da;
 }
 
-/* =========================
-   PALETTE
-   ========================= */
+/* PALETTE */
 
 .palette{
   display:flex;
@@ -213,9 +202,7 @@ header{
   flex:1;
 }
 
-/* =========================
-   NAV
-   ========================= */
+/* NAVIGATION */
 
 nav{
   border-top:1px solid rgba(255,255,255,.12);
@@ -252,9 +239,7 @@ nav{
   background:rgba(255,255,255,.12);
 }
 
-/* =========================
-   MAIN
-   ========================= */
+/* MAIN */
 
 main{
   max-width:1250px;
@@ -268,9 +253,7 @@ main{
   display:none !important;
 }
 
-/* =========================
-   CARDS
-   ========================= */
+/* CARDS */
 
 .card{
   background:var(--paper);
@@ -310,9 +293,7 @@ h3{
   line-height:1.55;
 }
 
-/* =========================
-   FORM
-   ========================= */
+/* FORM */
 
 label{
   display:block;
@@ -405,9 +386,7 @@ button.secondary{
   color:var(--brown);
 }
 
-/* =========================
-   NOTICES
-   ========================= */
+/* NOTICES */
 
 .notice{
   padding:13px 16px;
@@ -427,9 +406,7 @@ button.secondary{
   border-color:#d5a79d;
 }
 
-/* =========================
-   COLLECTION
-   ========================= */
+/* COLLECTION */
 
 .section-head{
   display:flex;
@@ -526,9 +503,7 @@ button.secondary{
   border-radius:10px;
 }
 
-/* =========================
-   SPECIMEN FORM
-   ========================= */
+/* SPECIMEN FORM */
 
 .form-card{
   max-width:900px;
@@ -597,9 +572,7 @@ button.secondary{
   margin-top:7px;
 }
 
-/* =========================
-   TABLET
-   ========================= */
+/* TABLET */
 
 @media(max-width:900px){
 
@@ -609,6 +582,7 @@ button.secondary{
 
   .hero-content{
     width:90%;
+    transform:translate(-50%,-38%);
   }
 
   .hero h1{
@@ -626,9 +600,7 @@ button.secondary{
 
 }
 
-/* =========================
-   PHONE
-   ========================= */
+/* PHONE */
 
 @media(max-width:560px){
 
@@ -655,7 +627,9 @@ button.secondary{
   .hero-content{
     width:90%;
 
-    bottom:27px;
+    top:50%;
+
+    transform:translate(-50%,-40%);
   }
 
   .hero-kicker{
@@ -704,552 +678,535 @@ button.secondary{
 </style>
 </head>
 
-
 <body>
 
 <header>
 
-  <!-- ACCOUNT CONTROLS -->
+<div class="auth-area">
 
-  <div class="auth-area">
+  <span
+    id="authUser"
+    class="auth-user">
+  </span>
 
-    <span
-      id="authUser"
-      class="auth-user">
-    </span>
+  <button
+    id="signInBtn"
+    class="auth-button"
+    onclick="showAuth('signin')">
 
-    <button
-      id="signInBtn"
-      class="auth-button"
-      onclick="showAuth('signin')">
+    Sign in
 
-      Sign in
+  </button>
 
-    </button>
+  <button
+    id="signUpBtn"
+    class="auth-button primary"
+    onclick="showAuth('signup')">
 
-    <button
-      id="signUpBtn"
-      class="auth-button primary"
-      onclick="showAuth('signup')">
+    Create account
 
-      Create account
+  </button>
 
-    </button>
+  <button
+    id="signOutBtn"
+    class="auth-button hidden"
+    onclick="signOut()">
 
-    <button
-      id="signOutBtn"
-      class="auth-button hidden"
-      onclick="signOut()">
+    Sign out
 
-      Sign out
+  </button>
 
-    </button>
-
-  </div>
+</div>
 
 
-  <!-- PAINTED HILLS -->
+<div class="hero">
 
-  <div class="hero">
+  <div class="hero-image">
 
-    <div class="hero-image">
+    <img
+      src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Joda_paintedhills1.jpg"
+      alt="Painted Hills, John Day Fossil Beds National Monument, Oregon">
 
-      <img
-        src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Joda_paintedhills1.jpg"
-        alt="Painted Hills, John Day Fossil Beds National Monument, Oregon">
-
-      <div class="hero-overlay"></div>
+    <div class="hero-overlay"></div>
 
 
-      <!-- CENTERED HERO TEXT -->
+    <div class="hero-content">
 
-      <div class="hero-content">
-
-        <div class="hero-kicker">
-          A field guide to natural color
-        </div>
-
-        <h1>
-          Oregon Pigment Project
-        </h1>
-
-        <p>
-          Documenting the natural colors of Oregon —
-          from earth, stone, clay, mineral, plant and ash
-          to finished pigment.
-        </p>
-
+      <div class="hero-kicker">
+        A field guide to natural color
       </div>
 
+      <h1>
+        Oregon Pigment Project
+      </h1>
+
+      <p>
+        Documenting the natural colors of Oregon —
+        from earth, stone, clay, mineral, plant and ash
+        to finished pigment.
+      </p>
+
     </div>
 
   </div>
 
+</div>
 
-  <!-- COLOR PALETTE -->
 
-  <div class="palette">
+<div class="palette">
 
-    <div
-      class="swatch"
-      style="background:#8d674d">
-    </div>
+  <div
+    class="swatch"
+    style="background:#8d674d">
+  </div>
 
-    <div
-      class="swatch"
-      style="background:#a85632">
-    </div>
+  <div
+    class="swatch"
+    style="background:#a85632">
+  </div>
 
-    <div
-      class="swatch"
-      style="background:#b48a58">
-    </div>
+  <div
+    class="swatch"
+    style="background:#b48a58">
+  </div>
 
-    <div
-      class="swatch"
-      style="background:#77704f">
-    </div>
+  <div
+    class="swatch"
+    style="background:#77704f">
+  </div>
 
-    <div
-      class="swatch"
-      style="background:#53654b">
-    </div>
+  <div
+    class="swatch"
+    style="background:#53654b">
+  </div>
 
-    <div
-      class="swatch"
-      style="background:#3d4140">
-    </div>
+  <div
+    class="swatch"
+    style="background:#3d4140">
+  </div>
+
+</div>
+
+
+<nav>
+
+  <div class="nav-inner">
+
+    <button
+      class="nav-button active"
+      onclick="show('list')">
+
+      Collection
+
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="requireAuthForNew()">
+
+      Add specimen
+
+    </button>
 
   </div>
 
-
-  <!-- NAVIGATION -->
-
-  <nav>
-
-    <div class="nav-inner">
-
-      <button
-        class="nav-button active"
-        onclick="show('list')">
-
-        Collection
-
-      </button>
-
-      <button
-        class="nav-button"
-        onclick="requireAuthForNew()">
-
-        Add specimen
-
-      </button>
-
-    </div>
-
-  </nav>
+</nav>
 
 </header>
 
 
 <main>
 
-  <div
-    id="status"
-    class="notice hidden">
+<div
+  id="status"
+  class="notice hidden">
+</div>
+
+
+<section
+  id="authView"
+  class="hidden">
+
+  <div class="card account-card">
+
+    <h2 id="authTitle">
+      Create your OPP account
+    </h2>
+
+    <p
+      id="authDescription"
+      class="meta">
+
+      Create an account to save specimens
+      to the Oregon Pigment Project database.
+      Your private specimens remain visible
+      only to you.
+
+    </p>
+
+
+    <div id="authEmailWrap">
+
+      <label for="authEmail">
+        Email
+      </label>
+
+      <input
+        id="authEmail"
+        type="email"
+        autocomplete="email"
+        placeholder="you@example.com">
+
+    </div>
+
+
+    <div
+      id="authPasswordWrap"
+      style="margin-top:12px">
+
+      <label for="authPassword">
+        Password
+      </label>
+
+      <input
+        id="authPassword"
+        type="password"
+        autocomplete="new-password"
+        placeholder="At least 6 characters">
+
+    </div>
+
+
+    <div class="account-actions">
+
+      <button
+        id="authSubmit"
+        onclick="submitAuth()">
+
+        Create account
+
+      </button>
+
+      <button
+        id="authSwitch"
+        class="secondary"
+        onclick="switchAuthMode()">
+
+        Already have an account?
+
+      </button>
+
+      <button
+        class="secondary"
+        onclick="show('list')">
+
+        Back to collection
+
+      </button>
+
+    </div>
+
+
+    <p
+      id="authMessage"
+      class="meta"
+      style="margin-top:14px">
+    </p>
+
+  </div>
+
+</section>
+
+
+<section id="listView">
+
+<div class="section-head">
+
+  <div>
+
+    <h2>
+      Oregon Pigment Collection
+    </h2>
+
+    <p class="meta">
+      Documented specimens and natural
+      pigment discoveries.
+    </p>
+
   </div>
 
 
-  <!-- AUTHENTICATION -->
+  <button
+    onclick="requireAuthForNew()">
 
-  <section
-    id="authView"
-    class="hidden">
+    + Add specimen
 
-    <div class="card account-card">
+  </button>
 
-      <h2 id="authTitle">
-        Create your OPP account
-      </h2>
-
-      <p
-        id="authDescription"
-        class="meta">
-
-        Create an account to save specimens
-        to the Oregon Pigment Project database.
-        Your private specimens remain visible
-        only to you.
-
-      </p>
+</div>
 
 
-      <div id="authEmailWrap">
+<div
+  id="specimenGrid"
+  class="specimens">
+</div>
 
-        <label for="authEmail">
-          Email
-        </label>
 
-        <input
-          id="authEmail"
-          type="email"
-          autocomplete="email"
-          placeholder="you@example.com">
+<div
+  id="emptyCollection"
+  class="empty hidden">
 
-      </div>
+  <h3>
+    No specimens yet
+  </h3>
+
+  <p class="meta">
+    Be the first to document an Oregon pigment.
+  </p>
+
+  <button
+    onclick="requireAuthForNew()">
+
+    Add your first specimen
+
+  </button>
+
+</div>
+
+</section>
+
+
+<section
+  id="formView"
+  class="hidden">
+
+<div class="card form-card">
+
+  <h2>
+    Document a Specimen
+  </h2>
+
+  <p class="meta">
+    Record the raw material, location,
+    processing method, and resulting pigment.
+  </p>
+
+
+  <div class="grid">
+
+
+    <div class="full">
+
+      <label for="specimenName">
+        Specimen name
+      </label>
+
+      <input
+        id="specimenName"
+        placeholder="e.g. Ochre Creek Red Earth">
+
+    </div>
+
+
+    <div>
+
+      <label for="materialType">
+        Material type
+      </label>
+
+      <select id="materialType">
+
+        <option value="">
+          Select...
+        </option>
+
+        <option>
+          Clay
+        </option>
+
+        <option>
+          Ochre
+        </option>
+
+        <option>
+          Iron-rich earth
+        </option>
+
+        <option>
+          Stone
+        </option>
+
+        <option>
+          Mineral
+        </option>
+
+        <option>
+          Plant
+        </option>
+
+        <option>
+          Charcoal / ash
+        </option>
+
+        <option>
+          Other
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div>
+
+      <label for="color">
+        Observed color
+      </label>
+
+      <input
+        id="color"
+        placeholder="Burnt orange, yellow ochre, black...">
+
+    </div>
+
+
+    <div>
+
+      <label for="location">
+        Location
+      </label>
+
+      <input
+        id="location"
+        placeholder="County / general area">
+
+    </div>
+
+
+    <div>
+
+      <label for="collectionDate">
+        Collection date
+      </label>
+
+      <input
+        id="collectionDate"
+        type="date">
+
+    </div>
+
+
+    <div class="full">
+
+      <label for="rawDescription">
+        Raw material description
+      </label>
+
+      <textarea
+        id="rawDescription"
+        placeholder="Describe what you found, where it occurred, texture, geology, etc."></textarea>
+
+    </div>
+
+
+    <div class="full">
+
+      <label for="processing">
+        Processing method
+      </label>
+
+      <textarea
+        id="processing"
+        placeholder="Drying, crushing, grinding, sieving, washing, levigation, heating, etc."></textarea>
+
+    </div>
+
+
+    <div class="full">
+
+      <label for="binder">
+        Binder tested
+      </label>
+
+      <input
+        id="binder"
+        placeholder="Gum arabic, egg, oil, watercolor medium...">
+
+    </div>
+
+
+    <div class="full">
+
+      <label for="finishedPigment">
+        Finished pigment notes
+      </label>
+
+      <textarea
+        id="finishedPigment"
+        placeholder="Final color, texture, transparency, staining, lightfastness observations..."></textarea>
+
+    </div>
+
+
+    <div class="full">
+
+      <label for="photoFiles">
+        Specimen photos
+      </label>
+
+      <input
+        id="photoFiles"
+        type="file"
+        accept="image/*"
+        multiple
+        onchange="previewPhotos()">
 
 
       <div
-        id="authPasswordWrap"
-        style="margin-top:12px">
-
-        <label for="authPassword">
-          Password
-        </label>
-
-        <input
-          id="authPassword"
-          type="password"
-          autocomplete="new-password"
-          placeholder="At least 6 characters">
-
+        id="photoPreview"
+        class="photo-preview">
       </div>
 
 
-      <div class="account-actions">
-
-        <button
-          id="authSubmit"
-          onclick="submitAuth()">
-
-          Create account
-
-        </button>
-
-        <button
-          id="authSwitch"
-          class="secondary"
-          onclick="switchAuthMode()">
-
-          Already have an account?
-
-        </button>
-
-        <button
-          class="secondary"
-          onclick="show('list')">
-
-          Back to collection
-
-        </button>
-
-      </div>
-
-
-      <p
-        id="authMessage"
-        class="meta"
-        style="margin-top:14px">
-      </p>
-
-    </div>
-
-  </section>
-
-
-  <!-- COLLECTION -->
-
-  <section id="listView">
-
-    <div class="section-head">
-
-      <div>
-
-        <h2>
-          Oregon Pigment Collection
-        </h2>
-
-        <p class="meta">
-          Documented specimens and natural
-          pigment discoveries.
-        </p>
-
-      </div>
-
-
-      <button
-        onclick="requireAuthForNew()">
-
-        + Add specimen
-
-      </button>
-
-    </div>
-
-
-    <div
-      id="specimenGrid"
-      class="specimens">
-    </div>
-
-
-    <div
-      id="emptyCollection"
-      class="empty hidden">
-
-      <h3>
-        No specimens yet
-      </h3>
-
-      <p class="meta">
-        Be the first to document an Oregon pigment.
-      </p>
-
-      <button
-        onclick="requireAuthForNew()">
-
-        Add your first specimen
-
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- SPECIMEN FORM -->
-
-  <section
-    id="formView"
-    class="hidden">
-
-    <div class="card form-card">
-
-      <h2>
-        Document a Specimen
-      </h2>
-
-      <p class="meta">
-        Record the raw material, location,
-        processing method, and resulting pigment.
-      </p>
-
-
-      <div class="grid">
-
-
-        <div class="full">
-
-          <label for="specimenName">
-            Specimen name
-          </label>
-
-          <input
-            id="specimenName"
-            placeholder="e.g. Ochre Creek Red Earth">
-
-        </div>
-
-
-        <div>
-
-          <label for="materialType">
-            Material type
-          </label>
-
-          <select id="materialType">
-
-            <option value="">
-              Select...
-            </option>
-
-            <option>
-              Clay
-            </option>
-
-            <option>
-              Ochre
-            </option>
-
-            <option>
-              Iron-rich earth
-            </option>
-
-            <option>
-              Stone
-            </option>
-
-            <option>
-              Mineral
-            </option>
-
-            <option>
-              Plant
-            </option>
-
-            <option>
-              Charcoal / ash
-            </option>
-
-            <option>
-              Other
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div>
-
-          <label for="color">
-            Observed color
-          </label>
-
-          <input
-            id="color"
-            placeholder="Burnt orange, yellow ochre, black...">
-
-        </div>
-
-
-        <div>
-
-          <label for="location">
-            Location
-          </label>
-
-          <input
-            id="location"
-            placeholder="County / general area">
-
-        </div>
-
-
-        <div>
-
-          <label for="collectionDate">
-            Collection date
-          </label>
-
-          <input
-            id="collectionDate"
-            type="date">
-
-        </div>
-
-
-        <div class="full">
-
-          <label for="rawDescription">
-            Raw material description
-          </label>
-
-          <textarea
-            id="rawDescription"
-            placeholder="Describe what you found, where it occurred, texture, geology, etc."></textarea>
-
-        </div>
-
-
-        <div class="full">
-
-          <label for="processing">
-            Processing method
-          </label>
-
-          <textarea
-            id="processing"
-            placeholder="Drying, crushing, grinding, sieving, washing, levigation, heating, etc."></textarea>
-
-        </div>
-
-
-        <div class="full">
-
-          <label for="binder">
-            Binder tested
-          </label>
-
-          <input
-            id="binder"
-            placeholder="Gum arabic, egg, oil, watercolor medium...">
-
-        </div>
-
-
-        <div class="full">
-
-          <label for="finishedPigment">
-            Finished pigment notes
-          </label>
-
-          <textarea
-            id="finishedPigment"
-            placeholder="Final color, texture, transparency, staining, lightfastness observations..."></textarea>
-
-        </div>
-
-
-        <div class="full">
-
-          <label for="photoFiles">
-            Specimen photos
-          </label>
-
-          <input
-            id="photoFiles"
-            type="file"
-            accept="image/*"
-            multiple
-            onchange="previewPhotos()">
-
-
-          <div
-            id="photoPreview"
-            class="photo-preview">
-          </div>
-
-
-          <div class="status-small">
-            Photos are optional.
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="form-actions">
-
-        <button
-          onclick="saveSpecimen()">
-
-          Save specimen
-
-        </button>
-
-        <button
-          class="secondary"
-          onclick="show('list')">
-
-          Cancel
-
-        </button>
-
+      <div class="status-small">
+        Photos are optional.
       </div>
 
     </div>
 
-  </section>
+  </div>
 
 
-  <p class="source-note">
+  <div class="form-actions">
 
-    Oregon Pigment Project —
-    a growing field guide to Oregon's natural colors.
+    <button
+      onclick="saveSpecimen()">
 
-  </p>
+      Save specimen
+
+    </button>
+
+    <button
+      class="secondary"
+      onclick="show('list')">
+
+      Cancel
+
+    </button>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<p class="source-note">
+
+  Oregon Pigment Project —
+  a growing field guide to Oregon's natural colors.
+
+</p>
 
 </main>
 
@@ -1257,10 +1214,6 @@ button.secondary{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
-/* =========================
-   SUPABASE
-   ========================= */
 
 const SUPABASE_URL =
 'https://xzvxligqjkheqmxtniyo.supabase.co';
@@ -1276,10 +1229,6 @@ let authMode = 'signup';
 let photoFiles = [];
 
 
-/* =========================
-   STARTUP
-   ========================= */
-
 document.addEventListener(
   'DOMContentLoaded',
   async function(){
@@ -1293,10 +1242,6 @@ document.addEventListener(
   }
 );
 
-
-/* =========================
-   DATABASE
-   ========================= */
 
 async function initClient(){
 
@@ -1332,10 +1277,6 @@ async function initClient(){
 
 }
 
-
-/* =========================
-   AUTH
-   ========================= */
 
 async function initAuth(){
 
@@ -1446,10 +1387,6 @@ function updateAuthUI(){
 
 }
 
-
-/* =========================
-   AUTH SCREEN
-   ========================= */
 
 function showAuth(mode){
 
@@ -1745,10 +1682,6 @@ function setAuthMessage(
 }
 
 
-/* =========================
-   SIGN OUT
-   ========================= */
-
 async function signOut(){
 
   if(!dbClient)
@@ -1783,10 +1716,6 @@ async function signOut(){
 }
 
 
-/* =========================
-   VIEW SWITCHING
-   ========================= */
-
 function show(view){
 
   const auth =
@@ -1805,36 +1734,24 @@ function show(view){
     );
 
 
-  auth.classList.add(
-    'hidden'
-  );
+  auth.classList.add('hidden');
 
-  list.classList.add(
-    'hidden'
-  );
+  list.classList.add('hidden');
 
-  form.classList.add(
-    'hidden'
-  );
+  form.classList.add('hidden');
 
 
   if(view === 'auth'){
 
-    auth.classList.remove(
-      'hidden'
-    );
+    auth.classList.remove('hidden');
 
   }else if(view === 'form'){
 
-    form.classList.remove(
-      'hidden'
-    );
+    form.classList.remove('hidden');
 
   }else{
 
-    list.classList.remove(
-      'hidden'
-    );
+    list.classList.remove('hidden');
 
   }
 
@@ -1846,10 +1763,6 @@ function show(view){
 
 }
 
-
-/* =========================
-   NEW SPECIMEN
-   ========================= */
 
 function requireAuthForNew(){
 
@@ -1873,10 +1786,6 @@ function requireAuthForNew(){
 
 }
 
-
-/* =========================
-   STATUS
-   ========================= */
 
 function showStatus(
   message,
@@ -1914,10 +1823,6 @@ function showStatus(
 
 }
 
-
-/* =========================
-   PHOTO PREVIEW
-   ========================= */
 
 function previewPhotos(){
 
@@ -1976,10 +1881,6 @@ function previewPhotos(){
 }
 
 
-/* =========================
-   CLEAR FORM
-   ========================= */
-
 function clearForm(){
 
   const ids = [
@@ -2026,10 +1927,6 @@ function clearForm(){
 
 }
 
-
-/* =========================
-   SAVE SPECIMEN
-   ========================= */
 
 async function saveSpecimen(){
 
@@ -2179,10 +2076,6 @@ async function saveSpecimen(){
 }
 
 
-/* =========================
-   LOAD SPECIMENS
-   ========================= */
-
 async function loadSpecimens(){
 
   const grid =
@@ -2288,10 +2181,6 @@ async function loadSpecimens(){
 
 }
 
-
-/* =========================
-   SPECIMEN CARD
-   ========================= */
 
 function createSpecimenCard(
   specimen
@@ -2465,10 +2354,6 @@ function createSpecimenCard(
 
 }
 
-
-/* =========================
-   DELETE
-   ========================= */
 
 async function deleteSpecimen(
   id
