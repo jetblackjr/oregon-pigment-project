@@ -1691,14 +1691,17 @@ function esc(value){
 
 function newId(){
 
-  const d = new Date();
+  const year = String(new Date().getFullYear()).slice(-2);
 
-  const n =
-    String(
-      Math.floor(Math.random()*9000)+1000
-    );
+  const numbers = cachedRows
+    .map(x => String(x.id || '').match(/^OPP-\d{2}-(\d{4})$/))
+    .filter(Boolean)
+    .map(m => Number(m[1]))
+    .filter(Number.isFinite);
 
-  return `OR-${d.getFullYear()}-${n}`;
+  const next = Math.max(0, ...numbers) + 1;
+
+  return `OPP-${year}-${String(next).padStart(4, '0')}`;
 
 }
 
