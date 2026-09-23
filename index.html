@@ -1,70 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#5b4637">
 <title>Oregon Pigment Project</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-
-/* =========================================================
-   ROOT
-========================================================= */
-
 :root{
-  --ink:#30261f;
-  --muted:#76685c;
-  --paper:#f5efe6;
-  --paper2:#ebe0d1;
-  --line:#d5c7b8;
-  --accent:#8d4d2f;
-  --accent-dark:#63351f;
-  --white:#fffaf2;
+  --ink:#29231e;
+  --muted:#756b60;
+  --paper:#f4efe5;
+  --card:#fffdf8;
+  --line:#d9cfc0;
+  --accent:#76512f;
+  --accent2:#b8864b;
+  --dark:#30251e;
+  --danger:#963d31;
+  --green:#48633d;
+  --cream:#f7f0e5;
 }
 
-*{
-  box-sizing:border-box;
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
 }
 
-html,
 body{
   margin:0;
-  padding:0;
-  min-height:100%;
-}
-
-body{
   background:var(--paper);
   color:var(--ink);
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
 button,
 input,
-textarea,
-select{
+select,
+textarea{
   font:inherit;
 }
 
-button{
+button,
+.button{
+  border:0;
+  border-radius:8px;
+  padding:10px 14px;
+  font-weight:700;
+  background:var(--accent);
+  color:white;
   cursor:pointer;
+  white-space:nowrap;
+  transition:.15s ease;
+}
+
+button:hover,
+.button:hover{
+  filter:brightness(1.07);
+}
+
+button:disabled{
+  opacity:.55;
+  cursor:wait;
+}
+
+.secondary{
+  background:#e8dfd2;
+  color:var(--ink);
+}
+
+.danger{
+  background:var(--danger);
+}
+
+.green{
+  background:var(--green);
 }
 
 .hidden{
-  display:none !important;
+  display:none!important;
 }
 
-
-/* =========================================================
+/* -------------------------------------------------
    HERO
-========================================================= */
+------------------------------------------------- */
 
-.hero{
+header{
   position:relative;
-  width:100%;
+  background:#5b4637;
+  color:white;
+  overflow:hidden;
 }
 
 .hero-image{
@@ -78,16 +103,15 @@ button{
 .hero-image img{
   width:100%;
   height:100%;
-  display:block;
   object-fit:cover;
   object-position:center 67%;
+  display:block;
   filter:saturate(.9) contrast(1.04);
 }
 
 .hero-overlay{
   position:absolute;
   inset:0;
-
   background:
     linear-gradient(
       180deg,
@@ -97,515 +121,518 @@ button{
     );
 }
 
-
-/* =========================================================
-   AUTH BUTTONS
-========================================================= */
-
-.auth-area{
-  position:absolute;
-  z-index:30;
-
-  top:18px;
-  left:50%;
-
-  transform:translateX(-50%);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  gap:8px;
-
-  padding:7px 9px;
-
-  background:rgba(48,31,23,.72);
-
-  border:1px solid rgba(255,255,255,.35);
-
-  border-radius:7px;
-
-  backdrop-filter:blur(5px);
-
-  box-shadow:
-    0 4px 16px rgba(0,0,0,.22);
-
-  white-space:nowrap;
-}
-
-.auth-user{
-  color:#fff;
-  font-size:12px;
-  margin-right:4px;
-}
-
-.auth-button{
-  border:1px solid rgba(255,255,255,.55);
-
-  background:rgba(255,255,255,.08);
-
-  color:#fff;
-
-  padding:8px 14px;
-
-  border-radius:5px;
-
-  font-size:13px;
-
-  font-weight:600;
-
-  transition:
-    background .15s ease,
-    transform .15s ease;
-}
-
-.auth-button:hover{
-  background:rgba(255,255,255,.18);
-}
-
-.auth-button:active{
-  transform:translateY(1px);
-}
-
-.auth-button.primary{
-  background:#fffaf2;
-  color:#4b3022;
-  border-color:#fffaf2;
-}
-
-.auth-button.primary:hover{
-  background:#fff;
-}
-
-
-/* =========================================================
-   HERO TEXT
-========================================================= */
-
 .hero-content{
   position:absolute;
-
   z-index:20;
-
   left:50%;
   top:50%;
-
   transform:translate(-50%,-50%);
-
   width:94%;
   max-width:1400px;
-
   text-align:center;
 }
 
 .hero-kicker{
   margin:0 0 18px;
-
   color:#f0dfcb;
-
   font-size:16px;
-
   line-height:1.2;
-
   letter-spacing:.30em;
-
   text-transform:uppercase;
-
   font-weight:500;
-
-  text-shadow:
-    0 2px 10px rgba(0,0,0,.35);
+  text-shadow:0 2px 10px rgba(0,0,0,.35);
 }
 
 .hero h1{
   margin:0 0 20px;
-
   color:#fffaf2;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    clamp(52px,7.4vw,96px);
-
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(52px,7.4vw,96px);
   font-weight:400;
-
   line-height:.98;
-
   letter-spacing:-.025em;
-
   white-space:nowrap;
-
-  text-shadow:
-    0 3px 18px rgba(0,0,0,.30);
+  text-shadow:0 3px 18px rgba(0,0,0,.30);
 }
 
 .hero p{
   width:100%;
   max-width:1250px;
-
   margin:0 auto;
-
   color:#f0e6da;
-
   font-size:19px;
-
   line-height:1.45;
-
-  text-shadow:
-    0 2px 10px rgba(0,0,0,.30);
+  text-shadow:0 2px 10px rgba(0,0,0,.30);
 }
 
+/* -------------------------------------------------
+   AUTH CONTROLS
+------------------------------------------------- */
 
-/* =========================================================
+.auth-area{
+  position:absolute;
+  z-index:30;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:7px 9px;
+  background:rgba(48,31,23,.72);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:7px;
+  backdrop-filter:blur(5px);
+  box-shadow:0 4px 16px rgba(0,0,0,.22);
+  white-space:nowrap;
+}
+
+.auth-user{
+  color:#f2e8dc;
+  font-size:12px;
+}
+
+.auth-button{
+  padding:7px 11px;
+  font-size:12px;
+  border-radius:6px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.25);
+}
+
+.auth-button.primary{
+  background:#eee0cd;
+  color:#38291f;
+  border-color:#eee0cd;
+}
+
+/* -------------------------------------------------
+   PALETTE
+------------------------------------------------- */
+
+.palette{
+  display:flex;
+  width:100%;
+  height:13px;
+  margin:0;
+  gap:0;
+}
+
+.palette span{
+  flex:1;
+  display:block;
+}
+
+/* -------------------------------------------------
+   NAV
+------------------------------------------------- */
+
+.site-nav{
+  background:#30251e;
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.site-nav button{
+  background:#6c4d31;
+  border:1px solid rgba(255,255,255,.08);
+  font-size:12px;
+}
+
+.site-nav .secondary{
+  background:#e5d9ca;
+  color:#30251e;
+}
+
+.site-nav .nav-spacer{
+  flex:1;
+}
+
+/* -------------------------------------------------
    MAIN
-========================================================= */
+------------------------------------------------- */
 
 main{
-  width:min(1180px,94%);
-
-  margin:0 auto;
-
-  padding:34px 0 60px;
-}
-
-.view{
-  width:100%;
+  max-width:1180px;
+  margin:auto;
+  padding:22px 18px 40px;
 }
 
 .card{
-  background:#fffaf3;
-
+  background:var(--card);
   border:1px solid var(--line);
-
-  border-radius:10px;
-
-  padding:24px;
-
-  box-shadow:
-    0 5px 18px rgba(55,38,26,.07);
+  border-radius:13px;
+  padding:16px;
+  margin-bottom:15px;
+  box-shadow:0 2px 10px rgba(75,56,32,.05);
 }
 
-.meta{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-}
-
-
-/* =========================================================
-   SECTION HEADERS
-========================================================= */
-
-.section-header{
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  gap:20px;
-
-  margin-bottom:20px;
-}
-
-.section-header h2{
-  margin:0;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:30px;
-
-  font-weight:400;
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.primary-btn,
-.secondary{
-  border-radius:6px;
-
-  padding:10px 16px;
-
-  border:1px solid var(--accent);
-}
-
-.primary-btn{
-  background:var(--accent);
-  color:white;
-}
-
-.primary-btn:hover{
-  background:var(--accent-dark);
-}
-
-.secondary{
-  background:#eee5d9;
-  color:var(--ink);
-  border-color:#cdbdad;
-}
-
-.secondary:hover{
-  background:#e3d7c9;
-}
-
-
-/* =========================================================
-   SPECIMEN GRID
-========================================================= */
-
-.specimen-grid{
+.grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:18px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
 }
 
-.specimen-card{
-  background:#fffaf3;
-
-  border:1px solid var(--line);
-
-  border-radius:9px;
-
-  overflow:hidden;
-
-  box-shadow:
-    0 3px 12px rgba(55,38,26,.05);
-}
-
-.specimen-photo{
-  width:100%;
-
-  height:190px;
-
-  background:#e5d9ca;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  color:#8a796b;
-
-  font-size:13px;
-}
-
-.specimen-body{
-  padding:17px;
-}
-
-.specimen-body h3{
-  margin:0 0 7px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:22px;
-
-  font-weight:400;
-}
-
-.specimen-body p{
-  margin:7px 0;
-
-  line-height:1.5;
-
-  font-size:14px;
-}
-
-.specimen-actions{
-  display:flex;
-
-  gap:8px;
-
-  margin-top:15px;
-}
-
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.form-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:18px;
-}
-
-.field{
-  display:flex;
-
-  flex-direction:column;
-}
-
-.field.full{
+.full{
   grid-column:1/-1;
 }
 
 label{
-  font-size:13px;
-
-  font-weight:700;
-
-  margin-bottom:6px;
+  display:block;
+  margin-bottom:5px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:750;
 }
 
 input,
-textarea,
-select{
+select,
+textarea{
   width:100%;
-
-  border:1px solid #cdbdad;
-
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:10px 11px;
   background:#fffdf9;
-
   color:var(--ink);
-
-  border-radius:6px;
-
-  padding:11px 12px;
-
-  outline:none;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:var(--accent);
-
-  box-shadow:
-    0 0 0 2px rgba(141,77,47,.12);
 }
 
 textarea{
-  min-height:110px;
-
+  min-height:90px;
   resize:vertical;
 }
 
-.form-actions{
+.row{
   display:flex;
-
-  gap:10px;
-
-  margin-top:22px;
-}
-
-.photo-preview{
-  display:flex;
-
+  align-items:center;
+  gap:8px;
   flex-wrap:wrap;
-
-  gap:10px;
-
-  margin-top:10px;
 }
 
-.photo-preview img{
-  width:120px;
-
-  height:90px;
-
-  object-fit:cover;
-
-  border-radius:6px;
-
-  border:1px solid var(--line);
+.right{
+  margin-left:auto;
 }
 
-
-/* =========================================================
-   ACCOUNT
-========================================================= */
-
-.account-card{
-  max-width:560px;
-
-  margin:20px auto;
+.meta{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
 }
 
-.account-card h2{
-  margin-top:0;
+.notice{
+  padding:10px 12px;
+  border-radius:9px;
+  background:#efe5d2;
+  font-size:13px;
+  margin-bottom:14px;
+}
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+.success{
+  background:#e2ecd9;
+}
 
-  font-size:32px;
+.error{
+  background:#f3ddd6;
+  color:#6e251d;
+}
 
+/* -------------------------------------------------
+   SEARCH / SORT
+------------------------------------------------- */
+
+.catalog-toolbar{
+  display:grid;
+  grid-template-columns:minmax(220px,1fr) 190px 190px;
+  gap:9px;
+  margin-bottom:15px;
+}
+
+.catalog-toolbar input{
+  min-width:0;
+}
+
+.catalog-heading{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.catalog-heading h2{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:26px;
   font-weight:400;
 }
 
-.account-actions{
+.catalog-count{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* -------------------------------------------------
+   COMPACT SPECIMEN CARDS
+------------------------------------------------- */
+
+.specimen-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+
+.specimen-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:11px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(75,56,32,.045);
+  min-width:0;
+}
+
+.specimen-image{
+  width:100%;
+  height:150px;
+  display:block;
+  object-fit:cover;
+  background:#e8dfd2;
+}
+
+.specimen-placeholder{
+  height:150px;
+  background:
+    linear-gradient(
+      135deg,
+      #e5dac8 0%,
+      #c9b69c 45%,
+      #9b8062 100%
+    );
   display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#695744;
+  font-family:Georgia,serif;
+  font-size:13px;
+}
 
+.specimen-body{
+  padding:11px 12px 12px;
+}
+
+.specimen-topline{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+  margin-bottom:5px;
+}
+
+.specimen-id{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:.05em;
+}
+
+.specimen-card h3{
+  margin:0 0 5px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:18px;
+  font-weight:400;
+  line-height:1.15;
+}
+
+.specimen-detail{
+  font-size:12px;
+  line-height:1.4;
+}
+
+.specimen-meta{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.specimen-actions{
+  display:flex;
+  gap:6px;
+  margin-top:9px;
+}
+
+.specimen-actions button{
+  padding:7px 9px;
+  font-size:11px;
+}
+
+.public-badge,
+.private-badge{
+  display:inline-block;
+  border-radius:99px;
+  padding:3px 7px;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+
+.public-badge{
+  background:#e2ecd9;
+  color:#35532d;
+}
+
+.private-badge{
+  background:#eee5d7;
+  color:#625848;
+}
+
+.tags{
+  display:flex;
+  gap:4px;
   flex-wrap:wrap;
+  margin-top:7px;
+}
 
+.tag{
+  background:#eee5d7;
+  border-radius:99px;
+  padding:3px 7px;
+  font-size:9px;
+}
+
+/* -------------------------------------------------
+   VISIBILITY SWITCH
+------------------------------------------------- */
+
+.visibility-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:9px;
+  overflow:hidden;
+  max-width:420px;
+}
+
+.visibility-option{
+  position:relative;
+}
+
+.visibility-option input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.visibility-option label{
+  margin:0;
+  padding:12px 13px;
+  text-align:center;
+  cursor:pointer;
+  background:#f1eadf;
+  color:#6c6257;
+  font-size:12px;
+  font-weight:750;
+}
+
+.visibility-option input:checked + label{
+  background:#526946;
+  color:white;
+}
+
+.visibility-description{
+  margin-top:7px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* -------------------------------------------------
+   PHOTO GALLERY
+------------------------------------------------- */
+
+.photo-gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
   gap:9px;
-
-  margin-top:18px;
+  margin-top:11px;
 }
 
-.account-actions button{
-  border:1px solid var(--accent);
-
-  background:var(--accent);
-
-  color:#fff;
-
-  border-radius:6px;
-
-  padding:10px 15px;
+.photo-item{
+  position:relative;
 }
 
-.account-actions .secondary{
-  background:#eee5d9;
-
-  color:var(--ink);
-
-  border-color:#cdbdad;
+.photo-item img{
+  width:100%;
+  height:130px;
+  object-fit:cover;
+  border-radius:9px;
+  border:1px solid var(--line);
+  display:block;
 }
 
+.photo-remove{
+  width:100%;
+  margin-top:4px;
+  padding:6px 8px;
+  font-size:10px;
+}
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+.photo-status{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:11px;
+}
 
-@media(max-width:1000px){
+/* -------------------------------------------------
+   AUTH SCREEN
+------------------------------------------------- */
 
+.auth-card{
+  max-width:560px;
+  margin:25px auto;
+}
+
+.auth-card h2{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:28px;
+  font-weight:400;
+}
+
+/* -------------------------------------------------
+   FOOTER
+------------------------------------------------- */
+
+.source-note{
+  margin:25px 2px 8px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+}
+
+.loading{
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
+}
+
+/* -------------------------------------------------
+   MOBILE
+------------------------------------------------- */
+
+@media(max-width:900px){
   .specimen-grid{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 
-  .hero h1{
-    font-size:
-      clamp(48px,8vw,76px);
+  .catalog-toolbar{
+    grid-template-columns:1fr 170px;
   }
 
-  .hero p{
-    font-size:18px;
+  .catalog-toolbar input{
+    grid-column:1/-1;
   }
 }
-
 
 @media(max-width:650px){
 
@@ -613,91 +640,88 @@ textarea{
     height:430px;
   }
 
-  .auth-area{
-    top:14px;
-
-    gap:5px;
-
-    padding:6px;
-  }
-
-  .auth-button{
-    padding:7px 10px;
-
-    font-size:12px;
-  }
-
   .hero-content{
     width:90%;
-
     top:50%;
-
-    transform:
-      translate(-50%,-50%);
+    transform:translate(-50%,-50%);
   }
 
   .hero-kicker{
     font-size:11px;
-
     letter-spacing:.22em;
-
     margin-bottom:14px;
   }
 
   .hero h1{
-    font-size:
-      clamp(42px,12vw,62px);
-
+    font-size:clamp(42px,12vw,62px);
     white-space:normal;
-
     line-height:1;
-
     margin-bottom:17px;
   }
 
   .hero p{
     font-size:15px;
-
     line-height:1.45;
   }
 
-  main{
-    width:92%;
+  .auth-area{
+    top:12px;
+    max-width:calc(100% - 20px);
+    overflow:hidden;
+  }
 
-    padding-top:24px;
+  .auth-user{
+    display:none;
+  }
+
+  .site-nav{
+    padding:9px 10px;
+  }
+
+  .site-nav button{
+    font-size:11px;
+    padding:8px 9px;
+  }
+
+  main{
+    padding:15px 11px 30px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .catalog-toolbar{
+    grid-template-columns:1fr;
+  }
+
+  .catalog-toolbar input{
+    grid-column:auto;
   }
 
   .specimen-grid{
     grid-template-columns:1fr;
   }
 
-  .form-grid{
-    grid-template-columns:1fr;
+  .specimen-image,
+  .specimen-placeholder{
+    height:135px;
   }
 
-  .field.full{
-    grid-column:auto;
-  }
-
-  .section-header{
-    align-items:flex-start;
-
-    flex-direction:column;
+  .visibility-switch{
+    max-width:none;
   }
 }
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =======================================================
-     HERO
-======================================================= -->
-
-<section class="hero">
+<header>
 
   <div class="hero-image">
 
@@ -708,138 +732,697 @@ textarea{
 
     <div class="hero-overlay"></div>
 
-  </div>
+    <div class="auth-area">
+      <span id="authUser" class="auth-user"></span>
 
+      <button
+        id="signInBtn"
+        class="auth-button"
+        onclick="showAuth('signin')"
+      >
+        Sign in
+      </button>
 
-  <!-- FLOATING AUTH CONTROLS -->
+      <button
+        id="signUpBtn"
+        class="auth-button primary"
+        onclick="showAuth('signup')"
+      >
+        Create account
+      </button>
 
-  <div class="auth-area">
-
-    <span
-      id="authUser"
-      class="auth-user"
-    ></span>
-
-    <button
-      id="signInBtn"
-      class="auth-button"
-      onclick="showAuth('signin')"
-    >
-      Sign in
-    </button>
-
-    <button
-      id="signUpBtn"
-      class="auth-button primary"
-      onclick="showAuth('signup')"
-    >
-      Create account
-    </button>
-
-    <button
-      id="signOutBtn"
-      class="auth-button hidden"
-      onclick="signOut()"
-    >
-      Sign out
-    </button>
-
-  </div>
-
-
-  <!-- HERO TEXT -->
-
-  <div class="hero-content">
-
-    <div class="hero-kicker">
-      A field guide to natural color
+      <button
+        id="signOutBtn"
+        class="auth-button hidden"
+        onclick="signOut()"
+      >
+        Sign out
+      </button>
     </div>
 
-    <h1>
-      Oregon Pigment Project
-    </h1>
+    <div class="hero-content">
 
-    <p>
-      Documenting the natural colors of Oregon — from earth, stone, plants, and places into a living field guide of pigment.
-    </p>
+      <div class="hero-kicker">
+        A field guide to natural color
+      </div>
+
+      <h1>
+        Oregon Pigment Project
+      </h1>
+
+      <p>
+        Documenting the natural colors of Oregon — from earth, stone,
+        plants, and places into a living field guide of pigment.
+      </p>
+
+    </div>
 
   </div>
 
-</section>
+  <div class="palette" aria-label="Oregon-inspired pigment palette">
+    <span style="background:#6e4b2b"></span>
+    <span style="background:#9a5d36"></span>
+    <span style="background:#c18a50"></span>
+    <span style="background:#b6a27e"></span>
+    <span style="background:#81705a"></span>
+    <span style="background:#566957"></span>
+    <span style="background:#3f5c58"></span>
+    <span style="background:#6c8792"></span>
+    <span style="background:#d8c8a8"></span>
+  </div>
 
+  <nav class="site-nav">
+
+    <button onclick="show('list')">
+      Collection
+    </button>
+
+    <button
+      id="newBtn"
+      onclick="show('form')"
+    >
+      + New Specimen
+    </button>
+
+    <button
+      id="backupBtn"
+      class="secondary"
+      onclick="backup()"
+    >
+      Private Backup
+    </button>
+
+    <button
+      class="secondary"
+      onclick="exportPublic()"
+    >
+      Export Public Catalog
+    </button>
+
+    <label
+      id="importLabel"
+      class="button secondary"
+      style="cursor:pointer"
+    >
+      Import Backup
+      <input
+        id="import"
+        type="file"
+        accept=".json"
+        hidden
+      >
+    </label>
+
+  </nav>
+
+</header>
 
 
 <main>
 
+  <!-- AUTH -->
 
-<!-- =======================================================
-     COLLECTION VIEW
-======================================================= -->
+  <section id="authView" class="hidden">
 
-<section
-  id="listView"
-  class="view"
->
+    <div class="card auth-card">
 
-  <div class="section-header">
+      <h2 id="authTitle">
+        Sign in
+      </h2>
 
-    <div>
+      <p
+        class="meta"
+        id="authDescription"
+        style="margin-top:8px"
+      >
+        Sign in to create and manage your private specimen collection.
+      </p>
+
+      <div style="margin-top:16px">
+
+        <label>
+          Email
+        </label>
+
+        <input
+          id="authEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+        >
+
+      </div>
+
+      <div style="margin-top:11px">
+
+        <label>
+          Password
+        </label>
+
+        <input
+          id="authPassword"
+          type="password"
+          autocomplete="current-password"
+          placeholder="At least 6 characters"
+        >
+
+      </div>
+
+      <div
+        class="row"
+        style="margin-top:14px"
+      >
+
+        <button
+          id="authSubmit"
+          onclick="submitAuth()"
+        >
+          Sign in
+        </button>
+
+        <button
+          id="authSwitch"
+          class="secondary"
+          onclick="switchAuthMode()"
+        >
+          Create account
+        </button>
+
+        <button
+          class="secondary"
+          onclick="show('list')"
+        >
+          Browse public catalog
+        </button>
+
+      </div>
+
+      <div
+        id="authStatus"
+        class="notice hidden"
+        style="margin-top:13px"
+      ></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- LIST -->
+
+  <section id="listView">
+
+    <div
+      id="status"
+      class="notice hidden"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+    <div class="catalog-heading">
 
       <h2>
-        Oregon Pigment Collection
+        Specimen Collection
       </h2>
 
       <div
-        id="collectionMeta"
-        class="meta"
+        id="catalogCount"
+        class="catalog-count"
+      ></div>
+
+    </div>
+
+    <div class="catalog-toolbar">
+
+      <input
+        id="search"
+        placeholder="Search specimens, materials, places, colors, tags…"
       >
-        Loading specimens...
+
+      <select id="filter">
+        <option value="">
+          All stages
+        </option>
+
+        <option value="Raw material">
+          Raw material
+        </option>
+
+        <option value="Processed pigment">
+          Processed pigment
+        </option>
+
+        <option value="Finished sample">
+          Finished sample
+        </option>
+      </select>
+
+      <select id="sort">
+        <option value="az">
+          A–Z
+        </option>
+
+        <option value="za">
+          Z–A
+        </option>
+
+        <option value="newest">
+          Newest
+        </option>
+
+        <option value="oldest">
+          Oldest
+        </option>
+      </select>
+
+      <select id="visibility">
+
+        <option value="all">
+          My collection + public
+        </option>
+
+        <option value="mine">
+          My private collection
+        </option>
+
+        <option value="public">
+          Public catalog only
+        </option>
+
+      </select>
+
+    </div>
+
+    <div id="list">
+
+      <div class="loading">
+        Loading specimens…
       </div>
 
     </div>
 
-
-    <button
-      id="newSpecimenBtn"
-      class="primary-btn"
-      onclick="requireAuthForNew()"
-    >
-      + Add specimen
-    </button>
-
-  </div>
+  </section>
 
 
-  <div
-    id="specimenGrid"
-    class="specimen-grid"
-  ></div>
+  <!-- FORM -->
 
-</section>
+  <section id="formView" class="hidden">
 
+    <div class="card">
 
+      <div class="row">
 
-<!-- =======================================================
-     SPECIMEN FORM
-======================================================= -->
-
-<section
-  id="formView"
-  class="view hidden"
->
-
-  <div class="card">
-
-    <div class="section-header">
-
-      <div>
-
-        <h2>
-          Add Oregon Specimen
+        <h2
+          id="formTitle"
+          style="
+            margin:0;
+            font-family:Georgia,serif;
+            font-weight:400;
+          "
+        >
+          New specimen
         </h2>
 
-        <div class="meta">
-          Record the material as you found it, then document the pigment you made.
+        <span
+          id="specimenId"
+          class="meta right"
+        ></span>
+
+      </div>
+
+
+      <div
+        class="grid"
+        style="margin-top:15px"
+      >
+
+        <div>
+
+          <label>
+            Catalog stage
+          </label>
+
+          <select id="stage">
+
+            <option>
+              Raw material
+            </option>
+
+            <option>
+              Processed pigment
+            </option>
+
+            <option>
+              Finished sample
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Collection date
+          </label>
+
+          <input
+            id="date"
+            type="date"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Collector
+          </label>
+
+          <input
+            id="collector"
+            placeholder="Name / initials"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Source / provenance
+          </label>
+
+          <input
+            id="source"
+            placeholder="Natural outcrop, road cut, stream, mine tailings…"
+          >
+
+        </div>
+
+
+        <div class="full">
+
+          <label>
+            Specimen name / working name
+          </label>
+
+          <input
+            id="name"
+            placeholder="e.g. Red Ochre — Smith Rock"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Material / suspected mineral
+          </label>
+
+          <input
+            id="material"
+            placeholder="Iron oxide, clay, basalt…"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Geologic setting
+          </label>
+
+          <input
+            id="geology"
+            placeholder="Basalt flow, river deposit, weathered zone…"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Locality / nearest place
+          </label>
+
+          <input id="locality">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            GPS latitude
+          </label>
+
+          <input
+            id="lat"
+            inputmode="decimal"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            GPS longitude
+          </label>
+
+          <input
+            id="lon"
+            inputmode="decimal"
+          >
+
+        </div>
+
+
+        <div class="full">
+
+          <button
+            type="button"
+            onclick="locate()"
+          >
+            📍 Capture current GPS location
+          </button>
+
+          <span
+            id="locStatus"
+            class="meta"
+            style="margin-left:8px"
+          ></span>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Color — field observation
+          </label>
+
+          <input
+            id="color"
+            placeholder="red-brown, yellow ochre…"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Color code / Munsell / HEX
+          </label>
+
+          <input id="colorCode">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Texture / grain
+          </label>
+
+          <input id="texture">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Hardness
+          </label>
+
+          <input
+            id="hardness"
+            placeholder="Mohs / scratch observations"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Streak
+          </label>
+
+          <input id="streak">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Magnetic
+          </label>
+
+          <select id="magnetic">
+
+            <option></option>
+            <option>No</option>
+            <option>Weak</option>
+            <option>Strong</option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Acid / vinegar reaction
+          </label>
+
+          <input id="reaction">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Moisture / condition
+          </label>
+
+          <input
+            id="condition"
+            placeholder="Dry, damp, crumbly, consolidated…"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Approx. quantity
+          </label>
+
+          <input
+            id="quantity"
+            placeholder="Weight / volume / bag count"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Storage location
+          </label>
+
+          <input
+            id="storage"
+            placeholder="Box 01 / Jar R-004"
+          >
+
+        </div>
+
+
+        <!-- PUBLIC / PRIVATE -->
+
+        <div class="full">
+
+          <label>
+            Specimen visibility
+          </label>
+
+          <div class="visibility-switch">
+
+            <div class="visibility-option">
+
+              <input
+                id="visibilityPrivate"
+                type="radio"
+                name="specimenVisibility"
+                value="private"
+                checked
+              >
+
+              <label for="visibilityPrivate">
+                🔒 Private
+              </label>
+
+            </div>
+
+
+            <div class="visibility-option">
+
+              <input
+                id="visibilityPublic"
+                type="radio"
+                name="specimenVisibility"
+                value="public"
+              >
+
+              <label for="visibilityPublic">
+                🌎 Public
+              </label>
+
+            </div>
+
+          </div>
+
+          <div class="visibility-description">
+
+            <strong>Private:</strong>
+            visible only to you.
+            &nbsp;&nbsp;
+
+            <strong>Public:</strong>
+            included in the Oregon Pigment Project catalog.
+
+          </div>
+
+        </div>
+
+
+        <div class="full">
+
+          <label>
+            Collection notes
+          </label>
+
+          <textarea
+            id="notes"
+            placeholder="What did the outcrop look like? Associated rocks? Vein, soil horizon, stream sediment?"
+          ></textarea>
+
         </div>
 
       </div>
@@ -847,182 +1430,172 @@ textarea{
     </div>
 
 
-    <div class="form-grid">
-
-
-      <div class="field">
-
-        <label for="specimenName">
-          Specimen name
-        </label>
-
-        <input
-          id="specimenName"
-          placeholder="Ochre, basalt, clay..."
-        >
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label for="location">
-          Location
-        </label>
-
-        <input
-          id="location"
-          placeholder="Central Oregon, Painted Hills..."
-        >
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label for="material">
-          Material
-        </label>
-
-        <input
-          id="material"
-          placeholder="Iron-rich clay, shale, stone..."
-        >
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label for="color">
-          Observed color
-        </label>
-
-        <input
-          id="color"
-          placeholder="Rust red, yellow ochre..."
-        >
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label for="collectionDate">
-          Collection date
-        </label>
-
-        <input
-          id="collectionDate"
-          type="date"
-        >
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label for="binder">
-          Binder tested
-        </label>
-
-        <input
-          id="binder"
-          placeholder="Gum arabic, egg, oil..."
-        >
-
-      </div>
-
-
-
-      <div class="field full">
-
-        <label for="processing">
-          Processing
-        </label>
-
-        <textarea
-          id="processing"
-          placeholder="Describe washing, drying, grinding, sieving, heating, etc."
-        ></textarea>
-
-      </div>
-
-
-
-      <div class="field full">
-
-        <label for="notes">
-          Notes
-        </label>
-
-        <textarea
-          id="notes"
-          placeholder="Texture, geology, permanence, observations..."
-        ></textarea>
-
-      </div>
-
-
-
-      <div class="field full">
-
-        <label for="photos">
-          Specimen photos
-        </label>
-
-        <input
-          id="photos"
-          type="file"
-          accept="image/*"
-          multiple
-          onchange="previewPhotos()"
-        >
-
-        <div
-          id="photoPreview"
-          class="photo-preview"
-        ></div>
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label for="visibility">
-          Visibility
-        </label>
-
-        <select id="visibility">
-
-          <option value="private">
-            Private — only me
-          </option>
-
-          <option value="public">
-            Public — field guide
-          </option>
-
-        </select>
-
-      </div>
-
+    <!-- PHOTOS -->
+
+    <div class="card">
+
+      <h2
+        style="
+          margin:0;
+          font-family:Georgia,serif;
+          font-weight:400;
+        "
+      >
+        Photographs
+      </h2>
+
+      <p class="meta">
+        Upload field photos, close-ups, scale photos, or finished pigment.
+        The first photo becomes the specimen's cover image.
+      </p>
+
+      <input
+        id="photos"
+        type="file"
+        accept="image/*"
+        capture="environment"
+        multiple
+      >
+
+      <div
+        id="photoStatus"
+        class="photo-status"
+      ></div>
+
+      <div
+        id="photoGallery"
+        class="photo-gallery"
+      ></div>
 
     </div>
 
 
-    <div class="form-actions">
+    <!-- PROCESSING -->
 
-      <button
-        class="primary-btn"
-        onclick="saveSpecimen()"
+    <div class="card">
+
+      <h2
+        style="
+          margin:0 0 13px;
+          font-family:Georgia,serif;
+          font-weight:400;
+        "
       >
+        Pigment processing
+      </h2>
+
+      <div class="grid">
+
+        <div>
+
+          <label>
+            Processing method
+          </label>
+
+          <input
+            id="process"
+            placeholder="Dry → crush → sieve → wash → settle → dry…"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Particle / sieve size
+          </label>
+
+          <input id="particle">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Yield
+          </label>
+
+          <input
+            id="yield"
+            placeholder="e.g. 18 g pigment from 100 g raw material"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Pigment color
+          </label>
+
+          <input id="pigmentColor">
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Binder tested
+          </label>
+
+          <input
+            id="binder"
+            placeholder="Gum arabic, egg, oil, casein…"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Lightfastness test
+          </label>
+
+          <input
+            id="lightfast"
+            placeholder="Method / result / duration"
+          >
+
+        </div>
+
+
+        <div class="full">
+
+          <label>
+            Test / paint notes
+          </label>
+
+          <textarea id="testNotes"></textarea>
+
+        </div>
+
+
+        <div class="full">
+
+          <label>
+            Tags
+          </label>
+
+          <input
+            id="tags"
+            placeholder="ochre, iron, coastal, Oregon, high-yield"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <button onclick="save()">
         Save specimen
       </button>
 
@@ -1033,496 +1606,383 @@ textarea{
         Cancel
       </button>
 
-    </div>
-
-
-    <p
-      id="formMessage"
-      class="meta"
-    ></p>
-
-  </div>
-
-</section>
-
-
-
-<!-- =======================================================
-     AUTH VIEW
-======================================================= -->
-
-<section
-  id="authView"
-  class="hidden"
->
-
-  <div class="card account-card">
-
-    <h2 id="authTitle">
-      Create your OPP account
-    </h2>
-
-
-    <p id="authDescription">
-      Create an account to save specimens to the Oregon Pigment Project database. Your private specimens remain visible only to you.
-    </p>
-
-
-    <div id="authEmailWrap">
-
-      <label for="authEmail">
-        Email
-      </label>
-
-      <input
-        id="authEmail"
-        type="email"
-        autocomplete="email"
-        placeholder="you@example.com"
-      >
-
-    </div>
-
-
-    <div
-      id="authPasswordWrap"
-      style="margin-top:10px"
-    >
-
-      <label for="authPassword">
-        Password
-      </label>
-
-      <input
-        id="authPassword"
-        type="password"
-        autocomplete="new-password"
-        placeholder="At least 6 characters"
-      >
-
-    </div>
-
-
-    <div class="account-actions">
-
       <button
-        id="authSubmit"
-        onclick="submitAuth()"
+        id="deleteBtn"
+        class="danger right hidden"
+        onclick="removeCurrent()"
       >
-        Create account
-      </button>
-
-
-      <button
-        id="authSwitch"
-        class="secondary"
-        onclick="switchAuthMode()"
-      >
-        Already have an account?
-      </button>
-
-
-      <button
-        class="secondary"
-        onclick="show('list')"
-      >
-        Back to collection
+        Delete
       </button>
 
     </div>
 
+  </section>
 
-    <p
-      id="authMessage"
-      class="meta"
-      style="margin-top:12px"
-    ></p>
 
-  </div>
-
-</section>
-
+  <p class="source-note">
+    Oregon Pigment Project · Natural color field guide.
+    Public specimens are available to everyone. Private specimens and
+    private photographs remain restricted to their owner through Supabase.
+  </p>
 
 </main>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-/* =========================================================
-   SUPABASE CONFIG
-========================================================= */
-
 const SUPABASE_URL =
-  "https://xzvxligqjkheqmxtniyo.supabase.co";
+  'https://xzvxligqjkheqmxtniyo.supabase.co';
 
-const SUPABASE_KEY =
-  "sb_publishable_X7HdwmQMT3gPmKmAoPTQhA_WCz-RrUA";
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_X7HdwmQMT3gPmKmAoPTQhA_WCz-RrUA';
+
+const { createClient } = supabase;
+
+const sb = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
 
-let supabaseClient = null;
+/* -------------------------------------------------
+   STATE
+------------------------------------------------- */
 
-let authMode = "signup";
+let current = null;
 
-let currentUser = null;
+let session = null;
+
+let authMode = 'signin';
+
+let cachedRows = [];
+
+let photoFiles = [];
+
+let photoPreviews = [];
+
+let originalPhotoRefs = [];
 
 
+/* -------------------------------------------------
+   HELPERS
+------------------------------------------------- */
 
-/* =========================================================
-   INITIALIZE SUPABASE
-========================================================= */
+const $ = id => document.getElementById(id);
 
-function initClient(){
 
-  if(
-    window.supabase &&
-    !supabaseClient
-  ){
+function esc(value){
 
-    supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+  return String(value ?? '')
+    .replace(
+      /[&<>"']/g,
+      m => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+      }[m])
+    );
+
+}
+
+
+function newId(){
+
+  const d = new Date();
+
+  const n =
+    String(
+      Math.floor(Math.random()*9000)+1000
+    );
+
+  return `OR-${d.getFullYear()}-${n}`;
+
+}
+
+
+function notice(message, ok=true){
+
+  const s = $('status');
+
+  s.textContent = message;
+
+  s.className =
+    'notice ' +
+    (ok ? 'success' : 'error');
+
+  s.classList.remove('hidden');
+
+  clearTimeout(window._noticeTimer);
+
+  window._noticeTimer =
+    setTimeout(
+      () => s.classList.add('hidden'),
+      6000
+    );
+
+}
+
+
+function authNotice(message, ok=false){
+
+  const s = $('authStatus');
+
+  s.textContent = message;
+
+  s.className =
+    'notice ' +
+    (ok ? 'success' : 'error');
+
+  s.classList.remove('hidden');
+
+}
+
+
+/* -------------------------------------------------
+   VIEW SWITCHING
+------------------------------------------------- */
+
+function show(which, id){
+
+  $('listView')
+    .classList
+    .toggle('hidden', which !== 'list');
+
+  $('formView')
+    .classList
+    .toggle('hidden', which !== 'form');
+
+  $('authView')
+    .classList
+    .toggle('hidden', which !== 'auth');
+
+
+  if(which === 'list'){
+    render();
+  }
+
+
+  if(which === 'form'){
+
+    if(!session){
+      showAuth('signin');
+      return;
+    }
+
+    openForm(id);
 
   }
 
 }
 
 
-
-/* =========================================================
-   AUTH INITIALIZATION
-========================================================= */
-
-async function initAuth(){
-
-  initClient();
-
-  if(!supabaseClient){
-    return;
-  }
-
-
-  const {
-    data:{
-      session
-    }
-  } =
-    await supabaseClient.auth.getSession();
-
-
-  currentUser =
-    session
-      ? session.user
-      : null;
-
-
-  updateAuthUI();
-
-
-  supabaseClient.auth.onAuthStateChange(
-    (_event, session) => {
-
-      currentUser =
-        session
-          ? session.user
-          : null;
-
-      updateAuthUI();
-
-      if(currentUser){
-
-        loadSpecimens();
-
-      }
-
-    }
-  );
-
-
-  loadSpecimens();
-
-}
-
-
-
-/* =========================================================
-   UPDATE AUTH UI
-========================================================= */
+/* -------------------------------------------------
+   AUTH UI
+------------------------------------------------- */
 
 function updateAuthUI(){
 
-  const user =
-    document.getElementById(
-      "authUser"
-    );
+  const authUser = $('authUser');
 
   const signIn =
-    document.getElementById(
-      "signInBtn"
-    );
+    $('signInBtn');
 
   const signUp =
-    document.getElementById(
-      "signUpBtn"
-    );
+    $('signUpBtn');
 
   const signOut =
-    document.getElementById(
-      "signOutBtn"
-    );
+    $('signOutBtn');
+
+  const newBtn =
+    $('newBtn');
+
+  const backupBtn =
+    $('backupBtn');
+
+  const importLabel =
+    $('importLabel');
+
+  const visibility =
+    $('visibility');
 
 
-  if(currentUser){
+  if(session){
 
-    if(user){
+    authUser.textContent =
+      session.user.email || 'Signed in';
 
-      user.textContent =
-        currentUser.email || "";
+    authUser.classList.remove('hidden');
 
-    }
+    signIn.classList.add('hidden');
 
-    signIn.classList.add(
-      "hidden"
-    );
+    signUp.classList.add('hidden');
 
-    signUp.classList.add(
-      "hidden"
-    );
+    signOut.classList.remove('hidden');
 
-    signOut.classList.remove(
-      "hidden"
-    );
+    newBtn.classList.remove('hidden');
+
+    backupBtn.classList.remove('hidden');
+
+    importLabel.classList.remove('hidden');
+
+
+    visibility.innerHTML = `
+      <option value="all">
+        My collection + public
+      </option>
+
+      <option value="mine">
+        My private collection
+      </option>
+
+      <option value="public">
+        Public catalog only
+      </option>
+    `;
 
   }else{
 
-    if(user){
+    authUser.textContent =
+      'Public catalog';
 
-      user.textContent = "";
+    authUser.classList.remove('hidden');
 
-    }
+    signIn.classList.remove('hidden');
 
-    signIn.classList.remove(
-      "hidden"
-    );
+    signUp.classList.remove('hidden');
 
-    signUp.classList.remove(
-      "hidden"
-    );
+    signOut.classList.add('hidden');
 
-    signOut.classList.add(
-      "hidden"
-    );
+    newBtn.classList.add('hidden');
+
+    backupBtn.classList.add('hidden');
+
+    importLabel.classList.add('hidden');
+
+
+    visibility.innerHTML = `
+      <option value="public">
+        Public catalog only
+      </option>
+    `;
 
   }
 
 }
 
 
-
-/* =========================================================
-   SHOW AUTH
-========================================================= */
-
-function showAuth(mode){
+function showAuth(mode='signin'){
 
   authMode = mode;
 
-  updateAuthForm();
+  $('authTitle').textContent =
+    mode === 'signup'
+      ? 'Create your OPP account'
+      : 'Sign in';
 
-  show("auth");
+  $('authDescription').textContent =
+    mode === 'signup'
+      ? 'Create an account to save specimens to the Oregon Pigment Project database. Your private specimens remain visible only to you.'
+      : 'Sign in to create and manage your private specimen collection.';
+
+  $('authSubmit').textContent =
+    mode === 'signup'
+      ? 'Create account'
+      : 'Sign in';
+
+  $('authSwitch').textContent =
+    mode === 'signup'
+      ? 'Already have an account?'
+      : 'Create account';
+
+  $('authPassword')
+    .setAttribute(
+      'autocomplete',
+      mode === 'signup'
+        ? 'new-password'
+        : 'current-password'
+    );
+
+  $('authStatus')
+    .classList
+    .add('hidden');
+
+  show('auth');
 
 }
 
-
-
-/* =========================================================
-   AUTH FORM
-========================================================= */
-
-function updateAuthForm(){
-
-  const title =
-    document.getElementById(
-      "authTitle"
-    );
-
-  const description =
-    document.getElementById(
-      "authDescription"
-    );
-
-  const submit =
-    document.getElementById(
-      "authSubmit"
-    );
-
-  const switchButton =
-    document.getElementById(
-      "authSwitch"
-    );
-
-  const password =
-    document.getElementById(
-      "authPassword"
-    );
-
-  const message =
-    document.getElementById(
-      "authMessage"
-    );
-
-
-  if(message){
-
-    message.textContent = "";
-
-  }
-
-
-  if(authMode === "signup"){
-
-    title.textContent =
-      "Create your OPP account";
-
-    description.textContent =
-      "Create an account to save specimens to the Oregon Pigment Project database. Your private specimens remain visible only to you.";
-
-    submit.textContent =
-      "Create account";
-
-    switchButton.textContent =
-      "Already have an account?";
-
-    password.autocomplete =
-      "new-password";
-
-  }else{
-
-    title.textContent =
-      "Sign in to OPP";
-
-    description.textContent =
-      "Sign in to access your saved specimens and add new pigment records.";
-
-    submit.textContent =
-      "Sign in";
-
-    switchButton.textContent =
-      "Create a new account";
-
-    password.autocomplete =
-      "current-password";
-
-  }
-
-}
-
-
-
-/* =========================================================
-   SWITCH AUTH MODE
-========================================================= */
 
 function switchAuthMode(){
 
-  authMode =
-    authMode === "signup"
-      ? "signin"
-      : "signup";
-
-  updateAuthForm();
+  showAuth(
+    authMode === 'signin'
+      ? 'signup'
+      : 'signin'
+  );
 
 }
 
 
-
-/* =========================================================
-   SUBMIT AUTH
-========================================================= */
-
 async function submitAuth(){
 
-  initClient();
-
-
   const email =
-    document
-      .getElementById("authEmail")
-      .value
-      .trim();
-
+    $('authEmail').value.trim();
 
   const password =
-    document
-      .getElementById("authPassword")
-      .value;
-
-
-  const message =
-    document.getElementById(
-      "authMessage"
-    );
+    $('authPassword').value;
 
 
   if(!email || !password){
 
-    message.textContent =
-      "Please enter an email and password.";
+    authNotice(
+      'Enter an email and password.'
+    );
 
     return;
-
   }
 
 
-  if(password.length < 6){
-
-    message.textContent =
-      "Password must be at least 6 characters.";
-
-    return;
-
-  }
-
-
-  message.textContent =
-    "Working...";
+  $('authSubmit').disabled = true;
 
 
   try{
 
-    if(authMode === "signup"){
+    if(authMode === 'signup'){
 
       const {
         data,
         error
       } =
-      await supabaseClient.auth.signUp({
-
-        email,
-
-        password
-
-      });
+        await sb.auth.signUp({
+          email,
+          password
+        });
 
 
-      if(error){
+      if(error)
         throw error;
-      }
 
 
       if(data.session){
 
-        message.textContent =
-          "Account created.";
+        await refreshSession();
 
-        show("list");
+        show('list');
+
+        notice(
+          'Account created and signed in.',
+          true
+        );
 
       }else{
 
-        message.textContent =
-          "Account created. Check your email if confirmation is required.";
+        authNotice(
+          'Account created. Check your email to confirm your account, then sign in.',
+          true
+        );
 
       }
 
@@ -1531,362 +1991,2103 @@ async function submitAuth(){
       const {
         error
       } =
-      await supabaseClient.auth.signInWithPassword({
-
-        email,
-
-        password
-
-      });
+        await sb.auth.signInWithPassword({
+          email,
+          password
+        });
 
 
-      if(error){
+      if(error)
         throw error;
-      }
 
 
-      message.textContent =
-        "Signed in.";
+      await refreshSession();
 
-      show("list");
+      show('list');
 
     }
 
   }catch(error){
 
-    console.error(error);
-
-    message.textContent =
+    authNotice(
       error.message ||
-      "Authentication failed.";
+      'Authentication failed.'
+    );
+
+  }finally{
+
+    $('authSubmit').disabled = false;
 
   }
 
 }
 
-
-
-/* =========================================================
-   SIGN OUT
-========================================================= */
 
 async function signOut(){
 
-  initClient();
+  await sb.auth.signOut();
 
+  session = null;
 
-  if(!supabaseClient){
-    return;
-  }
-
-
-  await supabaseClient.auth.signOut();
-
-
-  currentUser = null;
-
+  cachedRows = [];
 
   updateAuthUI();
 
+  show('list');
 
-  show("list");
-
-
-  loadSpecimens();
+  notice(
+    'Signed out. Showing the public catalog.',
+    true
+  );
 
 }
 
 
+async function refreshSession(){
 
-/* =========================================================
-   VIEW SWITCHING
-========================================================= */
+  const {
+    data
+  } =
+    await sb.auth.getSession();
 
-function show(view){
+  session =
+    data.session;
 
-  const list =
-    document.getElementById(
-      "listView"
-    );
-
-  const form =
-    document.getElementById(
-      "formView"
-    );
-
-  const auth =
-    document.getElementById(
-      "authView"
-    );
-
-
-  list.classList.add(
-    "hidden"
-  );
-
-  form.classList.add(
-    "hidden"
-  );
-
-  auth.classList.add(
-    "hidden"
-  );
-
-
-  if(view === "list"){
-
-    list.classList.remove(
-      "hidden"
-    );
-
-  }
-
-
-  if(view === "form"){
-
-    form.classList.remove(
-      "hidden"
-    );
-
-  }
-
-
-  if(view === "auth"){
-
-    auth.classList.remove(
-      "hidden"
-    );
-
-  }
+  updateAuthUI();
 
 }
 
 
+/* -------------------------------------------------
+   FORM FIELDS
+------------------------------------------------- */
 
-/* =========================================================
-   NEW SPECIMEN
-========================================================= */
+const fieldIds = [
 
-function requireAuthForNew(){
+  'stage',
+  'date',
+  'collector',
+  'source',
+  'name',
+  'material',
+  'geology',
+  'locality',
+  'lat',
+  'lon',
+  'color',
+  'colorCode',
+  'texture',
+  'hardness',
+  'streak',
+  'magnetic',
+  'reaction',
+  'condition',
+  'quantity',
+  'storage',
+  'notes',
+  'process',
+  'particle',
+  'yield',
+  'pigmentColor',
+  'binder',
+  'lightfast',
+  'testNotes',
+  'tags'
 
-  if(!currentUser){
-
-    showAuth("signin");
+];
 
 
-    const message =
-      document.getElementById(
-        "authMessage"
+function getVisibility(){
+
+  return $('visibilityPublic').checked
+    ? true
+    : false;
+
+}
+
+
+/* -------------------------------------------------
+   DATABASE MAPPING
+------------------------------------------------- */
+
+function dbRowFromForm(){
+
+  const x = {
+    ...(current || {})
+  };
+
+
+  fieldIds.forEach(
+    id => {
+      x[id] =
+        $(id).value;
+    }
+  );
+
+
+  x.publicShare =
+    getVisibility();
+
+
+  return {
+
+    id:
+      x.id,
+
+    user_id:
+      session.user.id,
+
+    stage:
+      x.stage || 'Raw material',
+
+    collection_date:
+      x.date || null,
+
+    collector:
+      x.collector || null,
+
+    source:
+      x.source || null,
+
+    working_name:
+      x.name || null,
+
+    material:
+      x.material || null,
+
+    geologic_setting:
+      x.geology || null,
+
+    locality:
+      x.locality || null,
+
+    gps_lat:
+      x.lat === ''
+        ? null
+        : Number(x.lat),
+
+    gps_lon:
+      x.lon === ''
+        ? null
+        : Number(x.lon),
+
+    raw_color:
+      x.color || null,
+
+    color_code:
+      x.colorCode || null,
+
+    texture:
+      x.texture || null,
+
+    hardness:
+      x.hardness || null,
+
+    streak:
+      x.streak || null,
+
+    magnetic:
+      x.magnetic || null,
+
+    acid_reaction:
+      x.reaction || null,
+
+    condition:
+      x.condition || null,
+
+    quantity:
+      x.quantity || null,
+
+    storage_location:
+      x.storage || null,
+
+    collection_notes:
+      x.notes || null,
+
+    public_share:
+      x.publicShare,
+
+    tags:
+      x.tags || null,
+
+    processing_method:
+      x.process || null,
+
+    particle_size:
+      x.particle || null,
+
+    yield_text:
+      x.yield || null,
+
+    pigment_color:
+      x.pigmentColor || null,
+
+    binder:
+      x.binder || null,
+
+    lightfastness:
+      x.lightfast || null,
+
+    test_notes:
+      x.testNotes || null,
+
+    photos:
+      x.photos || [],
+
+    updated_at:
+      new Date().toISOString()
+
+  };
+
+}
+
+
+const coreDbFields = [
+
+  'id',
+  'user_id',
+  'stage',
+  'collection_date',
+  'collector',
+  'source',
+  'working_name',
+  'material',
+  'geologic_setting',
+  'locality',
+  'gps_lat',
+  'gps_lon',
+  'raw_color',
+  'color_code',
+  'texture',
+  'hardness',
+  'streak',
+  'magnetic',
+  'acid_reaction',
+  'condition',
+  'quantity',
+  'storage_location',
+  'collection_notes',
+  'public_share',
+  'tags',
+  'updated_at'
+
+];
+
+
+function coreOnly(row){
+
+  const x = {};
+
+  coreDbFields.forEach(
+    key => {
+
+      if(key in row)
+        x[key] = row[key];
+
+    }
+  );
+
+  return x;
+
+}
+
+
+function uiFromDb(x){
+
+  return {
+
+    id:
+      x.id,
+
+    stage:
+      x.stage ||
+      'Raw material',
+
+    date:
+      x.collection_date ||
+      '',
+
+    collector:
+      x.collector ||
+      '',
+
+    source:
+      x.source ||
+      '',
+
+    name:
+      x.working_name ||
+      '',
+
+    material:
+      x.material ||
+      '',
+
+    geology:
+      x.geologic_setting ||
+      '',
+
+    locality:
+      x.locality ||
+      '',
+
+    lat:
+      x.gps_lat ??
+      '',
+
+    lon:
+      x.gps_lon ??
+      '',
+
+    color:
+      x.raw_color ||
+      '',
+
+    colorCode:
+      x.color_code ||
+      '',
+
+    texture:
+      x.texture ||
+      '',
+
+    hardness:
+      x.hardness ||
+      '',
+
+    streak:
+      x.streak ||
+      '',
+
+    magnetic:
+      x.magnetic ||
+      '',
+
+    reaction:
+      x.acid_reaction ||
+      '',
+
+    condition:
+      x.condition ||
+      '',
+
+    quantity:
+      x.quantity ||
+      '',
+
+    storage:
+      x.storage_location ||
+      '',
+
+    notes:
+      x.collection_notes ||
+      '',
+
+    publicShare:
+      !!x.public_share,
+
+    tags:
+      x.tags ||
+      '',
+
+    process:
+      x.processing_method ||
+      '',
+
+    particle:
+      x.particle_size ||
+      '',
+
+    yield:
+      x.yield_text ||
+      '',
+
+    pigmentColor:
+      x.pigment_color ||
+      '',
+
+    binder:
+      x.binder ||
+      '',
+
+    lightfast:
+      x.lightfastness ||
+      '',
+
+    testNotes:
+      x.test_notes ||
+      '',
+
+    photos:
+      Array.isArray(x.photos)
+        ? x.photos
+        : []
+
+  };
+
+}
+
+
+/* -------------------------------------------------
+   FETCH
+------------------------------------------------- */
+
+async function fetchRows(){
+
+  if(session){
+
+    const {
+      data,
+      error
+    } =
+      await sb
+        .from('specimens')
+        .select('*')
+        .order(
+          'collection_date',
+          {
+            ascending:false,
+            nullsFirst:false
+          }
+        );
+
+
+    if(error)
+      throw error;
+
+
+    return data || [];
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from('specimens')
+      .select(`
+        id,
+        stage,
+        collection_date,
+        collector,
+        source,
+        working_name,
+        material,
+        geologic_setting,
+        locality,
+        raw_color,
+        color_code,
+        texture,
+        hardness,
+        streak,
+        magnetic,
+        acid_reaction,
+        public_share,
+        tags,
+        photos
+      `)
+      .eq(
+        'public_share',
+        true
+      )
+      .order(
+        'collection_date',
+        {
+          ascending:false,
+          nullsFirst:false
+        }
       );
 
 
-    if(message){
+  if(error)
+    throw error;
 
-      message.textContent =
-        "Sign in or create an account to add a specimen.";
+
+  return data || [];
+
+}
+
+
+/* -------------------------------------------------
+   PHOTO URL HANDLING
+------------------------------------------------- */
+
+async function photoUrl(photo){
+
+  if(!photo)
+    return '';
+
+
+  /* Old/simple URL format */
+
+  if(typeof photo === 'string'){
+
+    if(
+      photo.startsWith('http://') ||
+      photo.startsWith('https://') ||
+      photo.startsWith('data:')
+    ){
+
+      return photo;
+
+    }
+
+    return '';
+
+  }
+
+
+  if(!photo.bucket || !photo.path)
+    return '';
+
+
+  /* Public bucket */
+
+  if(photo.bucket === 'public-specimen-photos'){
+
+    const {
+      data
+    } =
+      sb.storage
+        .from(
+          'public-specimen-photos'
+        )
+        .getPublicUrl(
+          photo.path
+        );
+
+
+    return data?.publicUrl || '';
+
+  }
+
+
+  /* Private bucket */
+
+  if(
+    photo.bucket ===
+    'private-specimen-photos'
+  ){
+
+    if(!session)
+      return '';
+
+    const {
+      data,
+      error
+    } =
+      await sb.storage
+        .from(
+          'private-specimen-photos'
+        )
+        .createSignedUrl(
+          photo.path,
+          60 * 60
+        );
+
+
+    if(error)
+      return '';
+
+    return data?.signedUrl || '';
+
+  }
+
+
+  return '';
+
+}
+
+
+/* -------------------------------------------------
+   RENDER COLLECTION
+------------------------------------------------- */
+
+async function render(){
+
+  $('list').innerHTML =
+    '<div class="loading">Loading specimens…</div>';
+
+
+  try{
+
+    cachedRows =
+      await fetchRows();
+
+
+    const query =
+      $('search')
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const filter =
+      $('filter').value;
+
+
+    const visibility =
+      $('visibility').value;
+
+
+    const sort =
+      $('sort').value;
+
+
+    let rows =
+      cachedRows.filter(
+        row => {
+
+          const matchesSearch =
+            !query ||
+            JSON.stringify(row)
+              .toLowerCase()
+              .includes(query);
+
+
+          const matchesStage =
+            !filter ||
+            row.stage === filter;
+
+
+          return (
+            matchesSearch &&
+            matchesStage
+          );
+
+        }
+      );
+
+
+    if(!session){
+
+      rows =
+        rows.filter(
+          row => row.public_share
+        );
+
+    }else{
+
+      if(visibility === 'mine'){
+
+        rows =
+          rows.filter(
+            row =>
+              row.user_id === session.user.id &&
+              !row.public_share
+          );
+
+      }
+
+      if(visibility === 'public'){
+
+        rows =
+          rows.filter(
+            row => row.public_share
+          );
+
+      }
 
     }
 
 
-    return;
+    rows.sort(
+      (a,b) => {
+
+        if(sort === 'az'){
+
+          return (
+            String(
+              a.working_name ||
+              a.id ||
+              ''
+            ).localeCompare(
+              String(
+                b.working_name ||
+                b.id ||
+                ''
+              )
+            )
+          );
+
+        }
+
+
+        if(sort === 'za'){
+
+          return (
+            String(
+              b.working_name ||
+              b.id ||
+              ''
+            ).localeCompare(
+              String(
+                a.working_name ||
+                a.id ||
+                ''
+              )
+            )
+          );
+
+        }
+
+
+        const da =
+          a.collection_date
+            ? new Date(a.collection_date).getTime()
+            : 0;
+
+        const db =
+          b.collection_date
+            ? new Date(b.collection_date).getTime()
+            : 0;
+
+
+        return sort === 'oldest'
+          ? da - db
+          : db - da;
+
+      }
+    );
+
+
+    $('catalogCount').textContent =
+      `${rows.length} specimen${rows.length === 1 ? '' : 's'}`;
+
+
+    if(!rows.length){
+
+      $('list').innerHTML =
+        '<div class="notice">No specimens match your search.</div>';
+
+      return;
+
+    }
+
+
+    const cards =
+      await Promise.all(
+        rows.map(
+          row => renderCard(row)
+        )
+      );
+
+
+    $('list').innerHTML =
+      `<div class="specimen-grid">
+        ${cards.join('')}
+      </div>`;
+
+
+  }catch(error){
+
+    $('catalogCount').textContent = '';
+
+    $('list').innerHTML =
+      `<div class="notice error">
+        Could not load the specimen catalog:
+        ${esc(error.message || 'Unknown database error')}
+      </div>`;
 
   }
-
-
-  show("form");
 
 }
 
 
+/* -------------------------------------------------
+   SPECIMEN CARD
+------------------------------------------------- */
 
-/* =========================================================
-   PHOTO PREVIEW
-========================================================= */
+async function renderCard(row){
 
-function previewPhotos(){
-
-  const input =
-    document.getElementById(
-      "photos"
-    );
+  const mine =
+    !!session &&
+    row.user_id === session.user.id;
 
 
-  const preview =
-    document.getElementById(
-      "photoPreview"
-    );
+  const publicRecord =
+    !!row.public_share;
 
 
-  preview.innerHTML = "";
+  let imageUrl = '';
 
+  if(
+    Array.isArray(row.photos) &&
+    row.photos.length
+  ){
 
-  if(!input.files){
-    return;
+    imageUrl =
+      await photoUrl(
+        row.photos[0]
+      );
+
   }
 
 
-  Array.from(
-    input.files
-  ).forEach(file => {
-
-    const reader =
-      new FileReader();
+  const visibilityBadge =
+    publicRecord
+      ? '<span class="public-badge">PUBLIC</span>'
+      : '<span class="private-badge">PRIVATE</span>';
 
 
-    reader.onload =
-      event => {
+  const tags =
+    String(row.tags || '')
+      .split(',')
+      .map(t => t.trim())
+      .filter(Boolean);
 
-        const img =
-          document.createElement(
-            "img"
+
+  const tagHtml =
+    tags.length
+      ? `
+        <div class="tags">
+          ${tags
+            .map(
+              tag =>
+                `<span class="tag">${esc(tag)}</span>`
+            )
+            .join('')}
+        </div>
+      `
+      : '';
+
+
+  let imageHtml;
+
+
+  if(imageUrl){
+
+    imageHtml =
+      `<img
+        class="specimen-image"
+        src="${esc(imageUrl)}"
+        alt="${esc(row.working_name || 'Specimen')}"
+        loading="lazy"
+      >`;
+
+  }else{
+
+    imageHtml =
+      `<div class="specimen-placeholder">
+        Oregon specimen
+      </div>`;
+
+  }
+
+
+  const actionHtml =
+    mine
+      ? `
+        <div class="specimen-actions">
+          <button
+            onclick="show('form','${esc(row.id)}')"
+          >
+            Open specimen
+          </button>
+        </div>
+      `
+      : '';
+
+
+  return `
+    <article class="specimen-card">
+
+      ${imageHtml}
+
+      <div class="specimen-body">
+
+        <div class="specimen-topline">
+
+          <span class="specimen-id">
+            ${esc(row.id || '')}
+          </span>
+
+          ${visibilityBadge}
+
+        </div>
+
+        <h3>
+          ${esc(
+            row.working_name ||
+            'Unnamed specimen'
+          )}
+        </h3>
+
+        <div class="specimen-detail">
+
+          ${esc(
+            row.material ||
+            'Material not identified'
+          )}
+
+        </div>
+
+        ${
+          row.locality
+            ? `
+              <div class="specimen-meta">
+                ${esc(row.locality)}
+              </div>
+            `
+            : ''
+        }
+
+        ${
+          row.raw_color
+            ? `
+              <div class="specimen-meta">
+                Color: ${esc(row.raw_color)}
+              </div>
+            `
+            : ''
+        }
+
+        ${
+          row.stage
+            ? `
+              <div class="specimen-meta">
+                ${esc(row.stage)}
+              </div>
+            `
+            : ''
+        }
+
+        ${tagHtml}
+
+        ${actionHtml}
+
+      </div>
+
+    </article>
+  `;
+
+}
+
+
+/* -------------------------------------------------
+   FORM
+------------------------------------------------- */
+
+async function openForm(id){
+
+  if(!session){
+
+    showAuth('signin');
+
+    return;
+
+  }
+
+
+  current = null;
+
+  photoFiles = [];
+
+  photoPreviews = [];
+
+  originalPhotoRefs = [];
+
+
+  $('formTitle').textContent =
+    id
+      ? 'Edit specimen'
+      : 'New specimen';
+
+
+  $('specimenId').textContent = '';
+
+  $('deleteBtn')
+    .classList
+    .toggle(
+      'hidden',
+      !id
+    );
+
+
+  $('locStatus').textContent = '';
+
+  $('photoStatus').textContent = '';
+
+
+  if(id){
+
+    let row =
+      cachedRows.find(
+        x => x.id === id
+      );
+
+
+    if(!row){
+
+      const {
+        data,
+        error
+      } =
+        await sb
+          .from('specimens')
+          .select('*')
+          .eq('id',id)
+          .single();
+
+
+      if(error){
+
+        notice(
+          error.message,
+          false
+        );
+
+        show('list');
+
+        return;
+
+      }
+
+
+      row = data;
+
+    }
+
+
+    if(
+      row.user_id !==
+      session.user.id
+    ){
+
+      notice(
+        'You can only edit your own specimens.',
+        false
+      );
+
+      show('list');
+
+      return;
+
+    }
+
+
+    const ui =
+      uiFromDb(row);
+
+
+    fill(ui);
+
+
+    originalPhotoRefs =
+      Array.isArray(ui.photos)
+        ? [...ui.photos]
+        : [];
+
+
+  }else{
+
+    fill({
+
+      id:newId(),
+
+      date:
+        new Date()
+          .toISOString()
+          .slice(0,10),
+
+      stage:'Raw material',
+
+      photos:[],
+
+      publicShare:false
+
+    });
+
+  }
+
+}
+
+
+/* -------------------------------------------------
+   FILL FORM
+------------------------------------------------- */
+
+function fill(x){
+
+  current = {
+    ...x
+  };
+
+
+  $('specimenId').textContent =
+    x.id;
+
+
+  fieldIds.forEach(
+    id => {
+
+      $(id).value =
+        x[id] ?? '';
+
+    }
+  );
+
+
+  if(x.publicShare){
+
+    $('visibilityPublic').checked =
+      true;
+
+  }else{
+
+    $('visibilityPrivate').checked =
+      true;
+
+  }
+
+
+  renderPhotos(
+    x.photos || []
+  );
+
+}
+
+
+/* -------------------------------------------------
+   LOCAL PHOTO PREVIEW
+------------------------------------------------- */
+
+async function renderPhotos(photos){
+
+  const gallery =
+    $('photoGallery');
+
+
+  if(
+    (!photos || !photos.length) &&
+    !photoPreviews.length
+  ){
+
+    gallery.innerHTML = '';
+
+    return;
+
+  }
+
+
+  let html = '';
+
+
+  for(
+    let i=0;
+    i<photos.length;
+    i++
+  ){
+
+    const url =
+      await photoUrl(
+        photos[i]
+      );
+
+
+    if(!url)
+      continue;
+
+
+    html += `
+      <div class="photo-item">
+
+        <img
+          src="${esc(url)}"
+          alt="Specimen photograph"
+        >
+
+        <button
+          type="button"
+          class="danger photo-remove"
+          onclick="removeExistingPhoto(${i})"
+        >
+          Remove
+        </button>
+
+      </div>
+    `;
+
+  }
+
+
+  photoPreviews.forEach(
+    (url,index) => {
+
+      html += `
+        <div class="photo-item">
+
+          <img
+            src="${esc(url)}"
+            alt="New specimen photograph"
+          >
+
+          <button
+            type="button"
+            class="danger photo-remove"
+            onclick="removeNewPhoto(${index})"
+          >
+            Remove
+          </button>
+
+        </div>
+      `;
+
+    }
+  );
+
+
+  gallery.innerHTML =
+    html;
+
+}
+
+
+/* -------------------------------------------------
+   SELECT PHOTOS
+------------------------------------------------- */
+
+$('photos').addEventListener(
+  'change',
+  event => {
+
+    const files =
+      Array.from(
+        event.target.files || []
+      );
+
+
+    if(!files.length)
+      return;
+
+
+    files.forEach(
+      file => {
+
+        if(
+          !file.type.startsWith('image/')
+        )
+          return;
+
+
+        photoFiles.push(file);
+
+
+        photoPreviews.push(
+          URL.createObjectURL(file)
+        );
+
+      }
+    );
+
+
+    $('photoStatus').textContent =
+      `${photoFiles.length} new photo${photoFiles.length === 1 ? '' : 's'} ready to upload.`;
+
+
+    renderPhotos(
+      current?.photos || []
+    );
+
+
+    event.target.value = '';
+
+  }
+);
+
+
+/* -------------------------------------------------
+   REMOVE NEW PHOTO
+------------------------------------------------- */
+
+function removeNewPhoto(index){
+
+  if(
+    photoPreviews[index]
+  ){
+
+    URL.revokeObjectURL(
+      photoPreviews[index]
+    );
+
+  }
+
+
+  photoPreviews.splice(
+    index,
+    1
+  );
+
+  photoFiles.splice(
+    index,
+    1
+  );
+
+
+  $('photoStatus').textContent =
+    photoFiles.length
+      ? `${photoFiles.length} new photo${photoFiles.length === 1 ? '' : 's'} ready to upload.`
+      : '';
+
+
+  renderPhotos(
+    current?.photos || []
+  );
+
+}
+
+
+/* -------------------------------------------------
+   REMOVE EXISTING PHOTO
+------------------------------------------------- */
+
+async function removeExistingPhoto(index){
+
+  if(!current)
+    return;
+
+
+  const photo =
+    current.photos[index];
+
+
+  if(photo){
+
+    try{
+
+      await deleteStoragePhoto(
+        photo
+      );
+
+    }catch(error){
+
+      console.warn(
+        'Could not remove storage object:',
+        error
+      );
+
+    }
+
+  }
+
+
+  current.photos.splice(
+    index,
+    1
+  );
+
+
+  renderPhotos(
+    current.photos
+  );
+
+}
+
+
+/* -------------------------------------------------
+   STORAGE DELETE
+------------------------------------------------- */
+
+async function deleteStoragePhoto(photo){
+
+  if(
+    !photo ||
+    typeof photo !== 'object' ||
+    !photo.bucket ||
+    !photo.path
+  )
+    return;
+
+
+  if(
+    !session ||
+    !photo.path.startsWith(
+      session.user.id + '/'
+    )
+  )
+    return;
+
+
+  await sb.storage
+    .from(photo.bucket)
+    .remove([
+      photo.path
+    ]);
+
+}
+
+
+/* -------------------------------------------------
+   RESIZE IMAGE
+------------------------------------------------- */
+
+function resizeImage(file){
+
+  return new Promise(
+    (resolve,reject) => {
+
+      const image =
+        new Image();
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload = () => {
+
+        image.onload = () => {
+
+          const max =
+            1800;
+
+
+          const scale =
+            Math.min(
+              1,
+              max /
+              Math.max(
+                image.width,
+                image.height
+              )
+            );
+
+
+          const canvas =
+            document.createElement(
+              'canvas'
+            );
+
+
+          canvas.width =
+            Math.max(
+              1,
+              Math.round(
+                image.width *
+                scale
+              )
+            );
+
+
+          canvas.height =
+            Math.max(
+              1,
+              Math.round(
+                image.height *
+                scale
+              )
+            );
+
+
+          const ctx =
+            canvas.getContext(
+              '2d'
+            );
+
+
+          ctx.drawImage(
+            image,
+            0,
+            0,
+            canvas.width,
+            canvas.height
           );
 
 
-        img.src =
-          event.target.result;
+          canvas.toBlob(
+            blob => {
+
+              if(!blob){
+
+                reject(
+                  new Error(
+                    'Could not process image.'
+                  )
+                );
+
+                return;
+
+              }
 
 
-        img.alt =
-          file.name;
+              resolve(blob);
+
+            },
+            'image/jpeg',
+            .84
+          );
+
+        };
 
 
-        preview.appendChild(
-          img
-        );
+        image.onerror =
+          () =>
+            reject(
+              new Error(
+                'Could not read image.'
+              )
+            );
+
+
+        image.src =
+          reader.result;
 
       };
 
 
-    reader.readAsDataURL(
-      file
-    );
+      reader.onerror =
+        () =>
+          reject(
+            reader.error
+          );
 
-  });
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
 
 }
 
 
+/* -------------------------------------------------
+   UPLOAD PHOTOS
+------------------------------------------------- */
 
-/* =========================================================
-   SAVE SPECIMEN
-========================================================= */
+async function uploadPhotos(
+  specimenId,
+  files,
+  isPublic
+){
 
-async function saveSpecimen(){
+  if(!files.length)
+    return [];
 
-  initClient();
+
+  const bucket =
+    isPublic
+      ? 'public-specimen-photos'
+      : 'private-specimen-photos';
 
 
-  if(!currentUser){
+  const refs = [];
 
-    showAuth("signin");
+
+  for(
+    let i=0;
+    i<files.length;
+    i++
+  ){
+
+    const file =
+      files[i];
+
+
+    const blob =
+      await resizeImage(
+        file
+      );
+
+
+    const safeName =
+      file.name
+        .replace(
+          /[^a-zA-Z0-9._-]/g,
+          '-'
+        )
+        .replace(
+          /-+/g,
+          '-'
+        );
+
+
+    const path =
+      `${session.user.id}/${specimenId}/${Date.now()}-${i}-${safeName}.jpg`;
+
+
+    $('photoStatus').textContent =
+      `Uploading photo ${i+1} of ${files.length}…`;
+
+
+    const {
+      error
+    } =
+      await sb.storage
+        .from(bucket)
+        .upload(
+          path,
+          blob,
+          {
+            contentType:
+              'image/jpeg',
+
+            upsert:false
+
+          }
+        );
+
+
+    if(error)
+      throw error;
+
+
+    refs.push({
+
+      bucket,
+
+      path
+
+    });
+
+  }
+
+
+  $('photoStatus').textContent =
+    `${files.length} photo${files.length === 1 ? '' : 's'} uploaded.`;
+
+
+  return refs;
+
+}
+
+
+/* -------------------------------------------------
+   SAVE
+------------------------------------------------- */
+
+async function save(){
+
+  if(!session){
+
+    showAuth('signin');
 
     return;
 
   }
 
 
-  const message =
-    document.getElementById(
-      "formMessage"
+  const saveButton =
+    document.querySelector(
+      '#formView button[onclick="save()"]'
     );
 
 
-  message.textContent =
-    "Saving specimen...";
+  if(saveButton)
+    saveButton.disabled = true;
 
 
-  const specimen = {
+  try{
 
-    name:
-      document
-        .getElementById(
-          "specimenName"
+    let row =
+      dbRowFromForm();
+
+
+    /*
+      First save the specimen itself.
+      We include the photo column because that column
+      has now been added to Supabase.
+    */
+
+    let initialRow = {
+      ...coreOnly(row),
+      photos:
+        current?.photos || []
+    };
+
+
+    let {
+      data,
+      error
+    } =
+      await sb
+        .from('specimens')
+        .upsert(
+          initialRow,
+          {
+            onConflict:'id'
+          }
         )
-        .value
-        .trim(),
+        .select()
+        .single();
 
 
-    location:
-      document
-        .getElementById(
-          "location"
+    if(error){
+
+      /*
+        If one of the optional processing columns is
+        not present yet, fall back to the established
+        core schema plus photos.
+      */
+
+      const fallback = {
+        ...coreOnly(row),
+        photos:
+          current?.photos || []
+      };
+
+
+      const result =
+        await sb
+          .from('specimens')
+          .upsert(
+            fallback,
+            {
+              onConflict:'id'
+            }
+          )
+          .select()
+          .single();
+
+
+      if(result.error)
+        throw result.error;
+
+
+      data =
+        result.data;
+
+    }
+
+
+    /*
+      Upload newly selected photographs.
+    */
+
+    if(photoFiles.length){
+
+      const newRefs =
+        await uploadPhotos(
+          row.id,
+          photoFiles,
+          row.public_share
+        );
+
+
+      row.photos = [
+        ...(current?.photos || []),
+        ...newRefs
+      ];
+
+
+      const {
+        data:
+          updatedData,
+        error:
+          updateError
+      } =
+        await sb
+          .from('specimens')
+          .update({
+            photos:
+              row.photos,
+
+            updated_at:
+              new Date().toISOString()
+          })
+          .eq(
+            'id',
+            row.id
+          )
+          .eq(
+            'user_id',
+            session.user.id
+          )
+          .select()
+          .single();
+
+
+      if(updateError)
+        throw updateError;
+
+
+      data =
+        updatedData;
+
+    }
+
+
+    /*
+      Save processing fields when those columns exist.
+    */
+
+    const optionalData = {
+
+      processing_method:
+        row.processing_method,
+
+      particle_size:
+        row.particle_size,
+
+      yield_text:
+        row.yield_text,
+
+      pigment_color:
+        row.pigment_color,
+
+      binder:
+        row.binder,
+
+      lightfastness:
+        row.lightfastness,
+
+      test_notes:
+        row.test_notes
+
+    };
+
+
+    const optionalResult =
+      await sb
+        .from('specimens')
+        .update(
+          optionalData
         )
-        .value
-        .trim(),
-
-
-    material:
-      document
-        .getElementById(
-          "material"
+        .eq(
+          'id',
+          row.id
         )
-        .value
-        .trim(),
+        .eq(
+          'user_id',
+          session.user.id
+        );
 
 
-    color:
-      document
-        .getElementById(
-          "color"
+    /*
+      If optional fields aren't present yet,
+      the specimen itself is still safely saved.
+    */
+
+    if(optionalResult.error){
+
+      console.warn(
+        'Optional processing fields were not updated:',
+        optionalResult.error.message
+      );
+
+    }
+
+
+    current =
+      uiFromDb({
+        ...data,
+        ...row
+      });
+
+
+    photoFiles = [];
+
+    photoPreviews.forEach(
+      url =>
+        URL.revokeObjectURL(url)
+    );
+
+    photoPreviews = [];
+
+
+    show('list');
+
+
+    notice(
+      `Saved ${row.working_name || row.id}.`,
+      true
+    );
+
+
+  }catch(error){
+
+    notice(
+      'Could not save specimen: ' +
+      (
+        error.message ||
+        'Unknown error'
+      ),
+      false
+    );
+
+  }finally{
+
+    if(saveButton)
+      saveButton.disabled = false;
+
+  }
+
+}
+
+
+/* -------------------------------------------------
+   DELETE SPECIMEN
+------------------------------------------------- */
+
+async function removeCurrent(){
+
+  if(
+    !session ||
+    !current
+  )
+    return;
+
+
+  if(
+    !confirm(
+      'Delete this specimen permanently from the online collection?'
+    )
+  )
+    return;
+
+
+  try{
+
+    /*
+      Remove stored photos first.
+    */
+
+    if(
+      Array.isArray(
+        current.photos
+      )
+    ){
+
+      for(
+        const photo of
+        current.photos
+      ){
+
+        try{
+
+          await deleteStoragePhoto(
+            photo
+          );
+
+        }catch(error){
+
+          console.warn(
+            error
+          );
+
+        }
+
+      }
+
+    }
+
+
+    const {
+      error
+    } =
+      await sb
+        .from('specimens')
+        .delete()
+        .eq(
+          'id',
+          current.id
         )
-        .value
-        .trim(),
+        .eq(
+          'user_id',
+          session.user.id
+        );
 
 
-    collection_date:
-      document
-        .getElementById(
-          "collectionDate"
-        )
-        .value ||
-      null,
+    if(error)
+      throw error;
 
 
-    binder:
-      document
-        .getElementById(
-          "binder"
-        )
-        .value
-        .trim(),
+    current = null;
 
 
-    processing:
-      document
-        .getElementById(
-          "processing"
-        )
-        .value
-        .trim(),
+    show('list');
 
 
-    notes:
-      document
-        .getElementById(
-          "notes"
-        )
-        .value
-        .trim(),
+    notice(
+      'Specimen deleted.',
+      true
+    );
 
 
-    visibility:
-      document
-        .getElementById(
-          "visibility"
-        )
-        .value,
+  }catch(error){
+
+    notice(
+      'Could not delete specimen: ' +
+      (
+        error.message ||
+        'Unknown error'
+      ),
+      false
+    );
+
+  }
+
+}
 
 
-    user_id:
-      currentUser.id
+/* -------------------------------------------------
+   GPS
+------------------------------------------------- */
 
-  };
+function locate(){
+
+  if(
+    !navigator.geolocation
+  ){
+
+    $('locStatus').textContent =
+      'GPS unavailable.';
+
+    return;
+
+  }
 
 
-  if(!specimen.name){
+  $('locStatus').textContent =
+    'Requesting location…';
 
-    message.textContent =
-      "Please give the specimen a name.";
+
+  navigator.geolocation.getCurrentPosition(
+
+    position => {
+
+      $('lat').value =
+        position.coords.latitude
+          .toFixed(6);
+
+      $('lon').value =
+        position.coords.longitude
+          .toFixed(6);
+
+      $('locStatus').textContent =
+        'Location captured.';
+
+    },
+
+    error => {
+
+      $('locStatus').textContent =
+        'Could not capture: ' +
+        error.message;
+
+    },
+
+    {
+      enableHighAccuracy:true,
+      timeout:10000
+    }
+
+  );
+
+}
+
+
+/* -------------------------------------------------
+   BACKUP
+------------------------------------------------- */
+
+async function backup(){
+
+  if(!session){
+
+    showAuth('signin');
 
     return;
 
@@ -1895,136 +4096,320 @@ async function saveSpecimen(){
 
   try{
 
-    const {
-      error
-    } =
-    await supabaseClient
-      .from("specimens")
-      .insert(specimen);
+    const rows =
+      await fetchRows();
 
 
-    if(error){
-      throw error;
+    if(!rows.length){
+
+      notice(
+        'Nothing to back up yet.',
+        false
+      );
+
+      return;
+
     }
 
 
-    message.textContent =
-      "Specimen saved.";
+    const payload = {
+
+      project:
+        'Oregon Pigment Project',
+
+      exported:
+        new Date()
+          .toISOString(),
+
+      specimens:
+        rows
+
+    };
 
 
-    clearForm();
+    const blob =
+      new Blob(
+        [
+          JSON.stringify(
+            payload,
+            null,
+            2
+          )
+        ],
+        {
+          type:
+            'application/json'
+        }
+      );
 
 
-    setTimeout(
-      () => {
+    const a =
+      document.createElement(
+        'a'
+      );
 
-        show("list");
 
-        loadSpecimens();
+    a.href =
+      URL.createObjectURL(
+        blob
+      );
 
-      },
-      500
+
+    a.download =
+      'oregon-pigment-private-backup.json';
+
+
+    a.click();
+
+
+    notice(
+      `Backup downloaded: ${rows.length} specimen${rows.length === 1 ? '' : 's'}.`,
+      true
     );
 
 
   }catch(error){
 
-    console.error(error);
-
-    message.textContent =
-      error.message ||
-      "Could not save specimen.";
+    notice(
+      'Backup failed: ' +
+      error.message,
+      false
+    );
 
   }
 
 }
 
 
+/* -------------------------------------------------
+   IMPORT
+------------------------------------------------- */
 
-/* =========================================================
-   CLEAR FORM
-========================================================= */
+$('import').addEventListener(
+  'change',
+  async event => {
 
-function clearForm(){
+    if(!session){
 
-  const ids = [
+      showAuth('signin');
 
-    "specimenName",
-    "location",
-    "material",
-    "color",
-    "collectionDate",
-    "binder",
-    "processing",
-    "notes"
+      event.target.value = '';
 
-  ];
+      return;
+
+    }
 
 
-  ids.forEach(
-    id => {
+    const file =
+      event.target.files[0];
 
-      const el =
-        document.getElementById(
-          id
+
+    if(!file)
+      return;
+
+
+    try{
+
+      const parsed =
+        JSON.parse(
+          await file.text()
         );
 
 
-      if(el){
+      const items =
+        Array.isArray(parsed)
+          ? parsed
+          : (
+              parsed.specimens ||
+              []
+            );
 
-        el.value = "";
 
-      }
+      if(!items.length)
+        throw new Error(
+          'No specimen records found in that backup.'
+        );
+
+
+      const rows =
+        items.map(
+          item => ({
+
+            id:
+              item.id ||
+              newId(),
+
+            user_id:
+              session.user.id,
+
+            stage:
+              item.stage ||
+              'Raw material',
+
+            collection_date:
+              item.date ||
+              item.collection_date ||
+              null,
+
+            collector:
+              item.collector ||
+              null,
+
+            source:
+              item.source ||
+              null,
+
+            working_name:
+              item.name ||
+              item.working_name ||
+              null,
+
+            material:
+              item.material ||
+              null,
+
+            geologic_setting:
+              item.geology ||
+              item.geologic_setting ||
+              null,
+
+            locality:
+              item.locality ||
+              null,
+
+            gps_lat:
+              item.lat ??
+              item.gps_lat ??
+              null,
+
+            gps_lon:
+              item.lon ??
+              item.gps_lon ??
+              null,
+
+            raw_color:
+              item.color ||
+              item.raw_color ||
+              null,
+
+            color_code:
+              item.colorCode ||
+              item.color_code ||
+              null,
+
+            texture:
+              item.texture ||
+              null,
+
+            hardness:
+              item.hardness ||
+              null,
+
+            streak:
+              item.streak ||
+              null,
+
+            magnetic:
+              item.magnetic ||
+              null,
+
+            acid_reaction:
+              item.reaction ||
+              item.acid_reaction ||
+              null,
+
+            condition:
+              item.condition ||
+              null,
+
+            quantity:
+              item.quantity ||
+              null,
+
+            storage_location:
+              item.storage ||
+              item.storage_location ||
+              null,
+
+            collection_notes:
+              item.notes ||
+              item.collection_notes ||
+              null,
+
+            public_share:
+              !!(
+                item.publicShare ??
+                item.public_share
+              ),
+
+            tags:
+              item.tags ||
+              null,
+
+            photos:
+              Array.isArray(item.photos)
+                ? item.photos
+                : [],
+
+            updated_at:
+              new Date()
+                .toISOString()
+
+          })
+        );
+
+
+      const {
+        error
+      } =
+        await sb
+          .from('specimens')
+          .upsert(
+            rows,
+            {
+              onConflict:'id'
+            }
+          );
+
+
+      if(error)
+        throw error;
+
+
+      await render();
+
+
+      notice(
+        `Imported ${rows.length} specimen${rows.length === 1 ? '' : 's'} into your account.`,
+        true
+      );
+
+
+    }catch(error){
+
+      notice(
+        'That backup could not be imported: ' +
+        (
+          error.message ||
+          'Unknown error'
+        ),
+        false
+      );
 
     }
-  );
 
 
-  document.getElementById(
-    "photos"
-  ).value = "";
+    event.target.value = '';
 
-
-  document.getElementById(
-    "photoPreview"
-  ).innerHTML = "";
-
-}
-
-
-
-/* =========================================================
-   LOAD SPECIMENS
-========================================================= */
-
-async function loadSpecimens(){
-
-  initClient();
-
-
-  const grid =
-    document.getElementById(
-      "specimenGrid"
-    );
-
-
-  const meta =
-    document.getElementById(
-      "collectionMeta"
-    );
-
-
-  if(!grid){
-    return;
   }
+);
 
 
-  grid.innerHTML = "";
+/* -------------------------------------------------
+   PUBLIC EXPORT
+------------------------------------------------- */
 
-
-  meta.textContent =
-    "Loading specimens...";
-
+async function exportPublic(){
 
   try{
 
@@ -2032,324 +4417,182 @@ async function loadSpecimens(){
       data,
       error
     } =
-    await supabaseClient
-      .from("specimens")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
+      await sb
+        .from('specimens')
+        .select(`
+          id,
+          stage,
+          collection_date,
+          collector,
+          source,
+          working_name,
+          material,
+          geologic_setting,
+          locality,
+          raw_color,
+          color_code,
+          texture,
+          hardness,
+          streak,
+          magnetic,
+          acid_reaction,
+          tags,
+          photos,
+          public_share
+        `)
+        .eq(
+          'public_share',
+          true
+        )
+        .order(
+          'collection_date',
+          {
+            ascending:false,
+            nullsFirst:false
+          }
+        );
 
 
-    if(error){
+    if(error)
       throw error;
-    }
 
 
-    if(!data || data.length === 0){
+    if(!data?.length){
 
-      meta.textContent =
-        "No specimens have been cataloged yet.";
-
-
-      grid.innerHTML = `
-
-        <div
-          class="card"
-          style="grid-column:1/-1"
-        >
-
-          <h3
-            style="
-              font-family:Georgia,serif;
-              font-weight:400;
-            "
-          >
-            The field guide is waiting.
-          </h3>
-
-          <p class="meta">
-            Add the first Oregon pigment specimen.
-          </p>
-
-        </div>
-
-      `;
-
+      notice(
+        'No specimens are marked public yet.',
+        false
+      );
 
       return;
 
     }
 
 
-    meta.textContent =
-      `${data.length} specimen${data.length === 1 ? "" : "s"}`;
+    const safe =
+      data.map(
+        row => ({
 
+          id:
+            row.id,
 
-    data.forEach(
-      specimen => {
+          stage:
+            row.stage,
 
-        grid.appendChild(
-          createSpecimenCard(
-            specimen
-          )
-        );
+          date:
+            row.collection_date,
 
-      }
-    );
+          collector:
+            row.collector,
 
+          source:
+            row.source,
 
-  }catch(error){
+          name:
+            row.working_name,
 
-    console.error(error);
+          material:
+            row.material,
 
+          geology:
+            row.geologic_setting,
 
-    meta.textContent =
-      "Could not load specimens.";
+          locality:
+            row.locality,
 
+          color:
+            row.raw_color,
 
-    grid.innerHTML = `
+          colorCode:
+            row.color_code,
 
-      <div
-        class="card"
-        style="grid-column:1/-1"
-      >
+          texture:
+            row.texture,
 
-        <p>
-          ${escapeHtml(
-            error.message ||
-            "Database connection error."
-          )}
-        </p>
+          hardness:
+            row.hardness,
 
-      </div>
+          streak:
+            row.streak,
 
-    `;
+          magnetic:
+            row.magnetic,
 
-  }
+          reaction:
+            row.acid_reaction,
 
-}
+          tags:
+            row.tags,
 
+          photos:
+            row.photos
 
-
-/* =========================================================
-   CREATE SPECIMEN CARD
-========================================================= */
-
-function createSpecimenCard(
-  specimen
-){
-
-  const card =
-    document.createElement(
-      "article"
-    );
-
-
-  card.className =
-    "specimen-card";
-
-
-  const body =
-    document.createElement(
-      "div"
-    );
-
-
-  body.className =
-    "specimen-body";
-
-
-  const title =
-    escapeHtml(
-      specimen.name ||
-      "Unnamed specimen"
-    );
-
-
-  const location =
-    escapeHtml(
-      specimen.location ||
-      "Location not recorded"
-    );
-
-
-  const material =
-    escapeHtml(
-      specimen.material ||
-      "Material not recorded"
-    );
-
-
-  const color =
-    escapeHtml(
-      specimen.color ||
-      "Color not recorded"
-    );
-
-
-  const visibility =
-    escapeHtml(
-      specimen.visibility ||
-      "private"
-    );
-
-
-  const notes =
-    escapeHtml(
-      specimen.notes ||
-      ""
-    );
-
-
-  card.innerHTML = `
-
-    <div class="specimen-photo">
-      No specimen photo
-    </div>
-
-  `;
-
-
-  body.innerHTML = `
-
-    <h3>
-      ${title}
-    </h3>
-
-
-    <p>
-      <strong>Location:</strong>
-      ${location}
-    </p>
-
-
-    <p>
-      <strong>Material:</strong>
-      ${material}
-    </p>
-
-
-    <p>
-      <strong>Color:</strong>
-      ${color}
-    </p>
-
-
-    ${
-      notes
-        ? `
-          <p>
-            ${notes}
-          </p>
-        `
-        : ""
-    }
-
-
-    <div class="meta">
-      ${visibility}
-    </div>
-
-
-    <div class="specimen-actions">
-
-      ${
-        currentUser &&
-        specimen.user_id === currentUser.id
-
-        ?
-
-        `
-          <button
-            class="secondary"
-            onclick="deleteSpecimen('${specimen.id}')"
-          >
-            Delete
-          </button>
-        `
-
-        :
-
-        ""
-      }
-
-    </div>
-
-  `;
-
-
-  card.appendChild(
-    body
-  );
-
-
-  return card;
-
-}
-
-
-
-/* =========================================================
-   DELETE SPECIMEN
-========================================================= */
-
-async function deleteSpecimen(
-  id
-){
-
-  if(!currentUser){
-    return;
-  }
-
-
-  const confirmed =
-    confirm(
-      "Delete this specimen?"
-    );
-
-
-  if(!confirmed){
-    return;
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-    await supabaseClient
-      .from("specimens")
-      .delete()
-      .eq(
-        "id",
-        id
-      )
-      .eq(
-        "user_id",
-        currentUser.id
+        })
       );
 
 
-    if(error){
-      throw error;
-    }
+    const payload = {
+
+      project:
+        'Oregon Pigment Project Field Guide',
+
+      exported:
+        new Date()
+          .toISOString(),
+
+      specimens:
+        safe
+
+    };
 
 
-    loadSpecimens();
+    const blob =
+      new Blob(
+        [
+          JSON.stringify(
+            payload,
+            null,
+            2
+          )
+        ],
+        {
+          type:
+            'application/json'
+        }
+      );
+
+
+    const a =
+      document.createElement(
+        'a'
+      );
+
+
+    a.href =
+      URL.createObjectURL(
+        blob
+      );
+
+
+    a.download =
+      'oregon-pigment-public-catalog.json';
+
+
+    a.click();
+
+
+    notice(
+      `Exported ${safe.length} public specimen${safe.length === 1 ? '' : 's'}.`,
+      true
+    );
 
 
   }catch(error){
 
-    console.error(error);
-
-
-    alert(
-      error.message ||
-      "Could not delete specimen."
+    notice(
+      'Public export failed: ' +
+      error.message,
+      false
     );
 
   }
@@ -2357,58 +4600,71 @@ async function deleteSpecimen(
 }
 
 
+/* -------------------------------------------------
+   SEARCH / SORT EVENTS
+------------------------------------------------- */
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+$('search')
+  .addEventListener(
+    'input',
+    render
+  );
 
-function escapeHtml(
-  value
-){
 
-  return String(value)
+$('filter')
+  .addEventListener(
+    'change',
+    render
+  );
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
 
-    .replace(
-      /</g,
-      "&lt;"
-    )
+$('sort')
+  .addEventListener(
+    'change',
+    render
+  );
 
-    .replace(
-      />/g,
-      "&gt;"
-    )
 
-    .replace(
-      /"/g,
-      "&quot;"
-    )
+$('visibility')
+  .addEventListener(
+    'change',
+    render
+  );
 
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+
+/* -------------------------------------------------
+   AUTH INITIALIZATION
+------------------------------------------------- */
+
+async function init(){
+
+  await refreshSession();
+
+  updateAuthUI();
+
+  await render();
+
+
+  sb.auth.onAuthStateChange(
+    async (
+      event,
+      newSession
+    ) => {
+
+      session =
+        newSession;
+
+      updateAuthUI();
+
+      await render();
+
+    }
+  );
 
 }
 
 
-
-/* =========================================================
-   START APP
-========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    initAuth();
-
-  }
-);
+init();
 
 </script>
 
