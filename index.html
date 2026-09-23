@@ -9,19 +9,18 @@
 <style>
 :root{
   --brown:#39261d;
-  --brown2:#5a392b;
   --cream:#f2ede3;
   --paper:#fffdf8;
   --ink:#2d241f;
   --muted:#776b61;
   --line:#d8cec0;
   --accent:#a85632;
-  --green:#53654b;
-  --gold:#b38a55;
   --shadow:0 8px 24px rgba(45,36,31,.09);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -30,72 +29,121 @@ body{
   font-family:Arial,Helvetica,sans-serif;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 header{
   background:var(--brown);
   color:#fff;
 }
 
-.topbar{
-  max-width:1250px;
-  margin:auto;
-  padding:17px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  width:100%;
+  margin:0;
+  padding:0;
 }
 
-.opp-mark{
-  display:flex;
-  align-items:center;
-  gap:11px;
+.hero-image{
+  position:relative;
+  width:100%;
+  height:365px;
+  overflow:hidden;
+  background:#594438;
 }
 
-.opp-symbol{
-  width:38px;
-  height:38px;
-  border:1px solid rgba(255,255,255,.65);
-  border-radius:50%;
+.hero-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+
+  /*
+    This crops away much of the sky
+    and keeps the colored hills prominent.
+  */
+  object-position:center 67%;
+
+  display:block;
+  filter:saturate(.9) contrast(1.04);
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(35,24,18,.74) 0%,
+      rgba(35,24,18,.43) 36%,
+      rgba(35,24,18,.05) 78%
+    );
+}
+
+/* =========================
+   FLOATING ACCOUNT CONTROLS
+========================= */
+
+.auth-area{
+  position:absolute;
+  z-index:10;
+
+  top:18px;
+  left:50%;
+
+  transform:translateX(-50%);
+
   display:flex;
   align-items:center;
   justify-content:center;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:14px;
-  letter-spacing:.08em;
-}
 
-.opp-label{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:18px;
-  letter-spacing:.14em;
-}
-
-.auth-area{
-  display:flex;
-  align-items:center;
   gap:8px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
+
+  padding:7px 9px;
+
+  background:rgba(48,31,23,.72);
+
+  border:1px solid rgba(255,255,255,.35);
+
+  border-radius:7px;
+
+  backdrop-filter:blur(5px);
+
+  box-shadow:
+    0 4px 16px rgba(0,0,0,.22);
 }
 
 .auth-user{
-  font-size:13px;
-  opacity:.78;
-  margin-right:5px;
+  font-size:12px;
+  color:#fff;
+  opacity:.85;
+  margin-right:3px;
 }
 
 .auth-button{
-  border:1px solid rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.55);
+
   background:transparent;
+
   color:#fff;
+
   border-radius:5px;
-  padding:8px 12px;
+
+  padding:7px 12px;
+
   cursor:pointer;
-  font-size:13px;
+
+  font-size:12px;
+
+  white-space:nowrap;
 }
 
 .auth-button:hover{
-  background:rgba(255,255,255,.1);
+  background:rgba(255,255,255,.14);
 }
 
 .auth-button.primary{
@@ -104,117 +152,127 @@ header{
   border-color:#fff;
 }
 
-/* HERO */
-
-.hero{
-  max-width:1250px;
-  margin:auto;
-  padding:32px 24px 44px;
-}
-
-.hero-image{
-  position:relative;
-  height:470px;
-  border-radius:4px;
-  overflow:hidden;
-  background:#594438;
-  box-shadow:0 12px 35px rgba(0,0,0,.22);
-}
-
-.hero-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center 55%;
-  display:block;
-  filter:saturate(.88) contrast(1.04);
-}
-
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(35,24,18,.76) 0%,
-      rgba(35,24,18,.48) 37%,
-      rgba(35,24,18,.05) 75%
-    );
-}
+/* =========================
+   HERO TEXT
+========================= */
 
 .hero-content{
   position:absolute;
-  left:45px;
-  bottom:42px;
-  max-width:650px;
+
+  left:6%;
+  bottom:38px;
+
+  max-width:700px;
 }
 
 .hero-kicker{
-  font-size:12px;
+  font-size:11px;
+
   letter-spacing:.25em;
+
   text-transform:uppercase;
+
   color:#eadbc8;
-  margin-bottom:12px;
+
+  margin-bottom:10px;
 }
 
 .hero h1{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-weight:400;
-  font-size:clamp(43px,6vw,76px);
-  line-height:.91;
+
+  font-size:
+    clamp(42px,6vw,74px);
+
+  line-height:.9;
+
   letter-spacing:-.025em;
-  margin:0 0 20px;
+
+  margin:0 0 18px;
+
   color:#fffaf2;
 }
 
 .hero p{
   margin:0;
+
   max-width:610px;
-  font-size:17px;
-  line-height:1.6;
+
+  font-size:16px;
+
+  line-height:1.55;
+
   color:#f0e6da;
 }
+
+/* =========================
+   PALETTE
+========================= */
 
 .palette{
   display:flex;
   height:12px;
 }
 
-.swatch{flex:1}
+.swatch{
+  flex:1;
+}
 
-/* NAV */
+/* =========================
+   NAVIGATION
+========================= */
 
 nav{
-  border-top:1px solid rgba(255,255,255,.12);
+  border-top:
+    1px solid
+    rgba(255,255,255,.12);
 }
 
 .nav-inner{
   max-width:1250px;
+
   margin:auto;
-  padding:10px 24px;
+
+  padding:9px 24px;
+
   display:flex;
+
   gap:8px;
 }
 
 .nav-button{
   border:0;
+
   background:transparent;
+
   color:#fff;
+
   padding:10px 14px;
+
   cursor:pointer;
+
   border-radius:5px;
 }
 
 .nav-button:hover,
 .nav-button.active{
-  background:rgba(255,255,255,.12);
+  background:
+    rgba(255,255,255,.12);
 }
 
-/* MAIN */
+/* =========================
+   MAIN
+========================= */
 
 main{
   max-width:1250px;
+
   margin:auto;
+
   padding:32px 24px 75px;
 }
 
@@ -222,39 +280,63 @@ main{
   display:none !important;
 }
 
+/* =========================
+   CARDS
+========================= */
+
 .card{
   background:var(--paper);
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:9px;
+
   padding:24px;
+
   box-shadow:var(--shadow);
 }
 
 .account-card{
   max-width:560px;
+
   margin:35px auto;
 }
 
 h2{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-weight:400;
+
   margin-top:0;
 }
 
 h3{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-weight:400;
 }
 
 .meta{
   color:var(--muted);
+
   line-height:1.55;
 }
 
 label{
   display:block;
+
   font-weight:bold;
+
   font-size:13px;
+
   margin-bottom:6px;
 }
 
@@ -262,29 +344,48 @@ input,
 textarea,
 select{
   width:100%;
+
   padding:11px 12px;
-  border:1px solid #cfc3b5;
+
+  border:
+    1px solid
+    #cfc3b5;
+
   border-radius:6px;
+
   background:#fff;
+
   color:var(--ink);
+
   font:inherit;
 }
 
 textarea{
   min-height:120px;
+
   resize:vertical;
 }
 
 input:focus,
 textarea:focus,
 select:focus{
-  outline:2px solid rgba(168,86,50,.2);
-  border-color:var(--accent);
+  outline:
+    2px solid
+    rgba(168,86,50,.2);
+
+  border-color:
+    var(--accent);
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0,1fr)
+    );
+
   gap:16px;
 }
 
@@ -294,80 +395,131 @@ select:focus{
 
 .row{
   display:flex;
+
   align-items:center;
+
   gap:10px;
+
   flex-wrap:wrap;
 }
 
 button{
   border:0;
+
   border-radius:6px;
+
   padding:11px 16px;
+
   background:var(--brown);
+
   color:#fff;
+
   cursor:pointer;
+
   font:inherit;
 }
 
-button:hover{opacity:.9}
+button:hover{
+  opacity:.9;
+}
 
 button.secondary{
   background:#e8dfd4;
+
   color:var(--brown);
 }
 
 .notice{
   padding:13px 16px;
+
   border-radius:7px;
+
   background:#eee5d9;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   margin-bottom:18px;
 }
 
 .notice.error{
   background:#f5dfda;
+
   border-color:#d5a79d;
 }
 
+/* =========================
+   COLLECTION
+========================= */
+
 .section-head{
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   gap:15px;
+
   flex-wrap:wrap;
+
   margin-bottom:20px;
 }
 
-.section-head h2{margin:0}
+.section-head h2{
+  margin:0;
+}
 
 .specimens{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0,1fr)
+    );
+
   gap:18px;
 }
 
 .specimen{
   background:var(--paper);
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:9px;
+
   overflow:hidden;
+
   box-shadow:var(--shadow);
 }
 
 .specimen-image{
   width:100%;
+
   aspect-ratio:4/3;
+
   background:#e7ded2;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   color:var(--muted);
+
   overflow:hidden;
 }
 
 .specimen-image img{
   width:100%;
+
   height:100%;
+
   object-fit:cover;
 }
 
@@ -377,178 +529,182 @@ button.secondary{
 
 .specimen-body h3{
   margin:0 0 8px;
+
   font-size:21px;
 }
 
 .specimen-meta{
   color:var(--muted);
+
   font-size:13px;
+
   line-height:1.5;
 }
 
 .empty{
   padding:50px 20px;
+
   text-align:center;
-  background:rgba(255,255,255,.35);
-  border:1px dashed var(--line);
+
+  background:
+    rgba(255,255,255,.35);
+
+  border:
+    1px dashed
+    var(--line);
+
   border-radius:10px;
 }
 
+/* =========================
+   FORM
+========================= */
+
 .form-card{
   max-width:900px;
+
   margin:auto;
 }
 
 .form-actions{
   margin-top:22px;
+
   display:flex;
+
   gap:10px;
+
   flex-wrap:wrap;
 }
 
 .photo-preview{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:10px;
+
   margin-top:12px;
 }
 
 .photo-preview img{
   width:100%;
+
   aspect-ratio:1;
+
   object-fit:cover;
+
   border-radius:6px;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
 }
 
 .source-note{
   margin-top:35px;
+
   color:var(--muted);
+
   font-size:12px;
+
   text-align:center;
 }
 
 .account-actions{
   margin-top:18px;
+
   display:flex;
+
   gap:9px;
+
   flex-wrap:wrap;
 }
 
 .status-small{
   font-size:12px;
+
   color:var(--muted);
+
   margin-top:7px;
 }
 
-/* FIELD GUIDE IMAGE STRIP */
-
-.field-strip{
-  margin:45px 0 38px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.field-image{
-  height:280px;
-  position:relative;
-  overflow:hidden;
-  border-radius:6px;
-}
-
-.field-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.field-caption{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:22px 20px 17px;
-  background:linear-gradient(transparent,rgba(32,23,18,.82));
-  color:#fff;
-}
-
-.field-caption strong{
-  display:block;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:21px;
-  font-weight:400;
-}
-
-.field-caption span{
-  font-size:12px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  opacity:.8;
-}
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:800px){
 
-  .hero{
-    padding:20px 16px 28px;
-  }
-
   .hero-image{
-    height:440px;
+    height:330px;
   }
 
   .hero-content{
-    left:28px;
-    right:25px;
-    bottom:30px;
-  }
-
-  .specimens{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .field-strip{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:560px){
-
-  .topbar{
-    align-items:flex-start;
-    flex-direction:column;
-    padding:14px 16px;
-  }
-
-  .auth-area{
-    justify-content:flex-start;
-  }
-
-  .opp-label{
-    display:none;
-  }
-
-  .hero{
-    padding:14px 12px 20px;
-  }
-
-  .hero-image{
-    height:500px;
-  }
-
-  .hero-content{
-    left:23px;
+    left:25px;
     right:20px;
-    bottom:28px;
+    bottom:27px;
   }
 
   .hero h1{
     font-size:48px;
   }
 
+  .specimens{
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0,1fr)
+      );
+  }
+
+}
+
+@media(max-width:560px){
+
+  .hero-image{
+    height:430px;
+  }
+
+  .auth-area{
+    top:12px;
+
+    width:auto;
+
+    max-width:
+      calc(100% - 24px);
+
+    gap:5px;
+
+    padding:6px;
+  }
+
+  .auth-button{
+    padding:7px 9px;
+
+    font-size:11px;
+  }
+
+  .hero-content{
+    left:20px;
+
+    right:18px;
+
+    bottom:27px;
+  }
+
+  .hero h1{
+    font-size:47px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
   main{
-    padding:25px 16px 60px;
+    padding:
+      25px
+      16px
+      60px;
   }
 
   .grid{
@@ -560,12 +716,10 @@ button.secondary{
   }
 
   .photo-preview{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
-  .field-image{
-    height:230px;
-  }
 }
 </style>
 </head>
@@ -574,51 +728,40 @@ button.secondary{
 
 <header>
 
-  <!-- TOP BAR -->
+  <!-- FLOATING SIGN IN / ACCOUNT CONTROLS -->
 
-  <div class="topbar">
+  <div class="auth-area">
 
-    <div class="opp-mark">
+    <span
+      id="authUser"
+      class="auth-user">
+    </span>
 
-      <div class="opp-symbol">OPP</div>
+    <button
+      id="signInBtn"
+      class="auth-button"
+      onclick="showAuth('signin')">
+      Sign in
+    </button>
 
-      <div class="opp-label">
-        FIELD GUIDE
-      </div>
+    <button
+      id="signUpBtn"
+      class="auth-button primary"
+      onclick="showAuth('signup')">
+      Create account
+    </button>
 
-    </div>
-
-    <div class="auth-area">
-
-      <span id="authUser" class="auth-user"></span>
-
-      <button
-        id="signInBtn"
-        class="auth-button"
-        onclick="showAuth('signin')">
-        Sign in
-      </button>
-
-      <button
-        id="signUpBtn"
-        class="auth-button primary"
-        onclick="showAuth('signup')">
-        Create account
-      </button>
-
-      <button
-        id="signOutBtn"
-        class="auth-button hidden"
-        onclick="signOut()">
-        Sign out
-      </button>
-
-    </div>
+    <button
+      id="signOutBtn"
+      class="auth-button hidden"
+      onclick="signOut()">
+      Sign out
+    </button>
 
   </div>
 
 
-  <!-- HERO -->
+  <!-- PAINTED HILLS HERO -->
 
   <div class="hero">
 
@@ -655,16 +798,39 @@ button.secondary{
   </div>
 
 
-  <!-- OREGON PALETTE -->
+  <!-- PALETTE -->
 
   <div class="palette">
 
-    <div class="swatch" style="background:#8d674d"></div>
-    <div class="swatch" style="background:#a85632"></div>
-    <div class="swatch" style="background:#b48a58"></div>
-    <div class="swatch" style="background:#77704f"></div>
-    <div class="swatch" style="background:#53654b"></div>
-    <div class="swatch" style="background:#3d4140"></div>
+    <div
+      class="swatch"
+      style="background:#8d674d">
+    </div>
+
+    <div
+      class="swatch"
+      style="background:#a85632">
+    </div>
+
+    <div
+      class="swatch"
+      style="background:#b48a58">
+    </div>
+
+    <div
+      class="swatch"
+      style="background:#77704f">
+    </div>
+
+    <div
+      class="swatch"
+      style="background:#53654b">
+    </div>
+
+    <div
+      class="swatch"
+      style="background:#3d4140">
+    </div>
 
   </div>
 
@@ -702,49 +868,11 @@ button.secondary{
   </div>
 
 
-  <!-- FIELD GUIDE IMAGES -->
-
-  <div class="field-strip">
-
-    <div class="field-image">
-
-      <img
-        src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Kalmiopsis.jpg"
-        alt="Kalmiopsis Wilderness in southwest Oregon">
-
-      <div class="field-caption">
-
-        <strong>Forest</strong>
-
-        <span>Oregon's living palette</span>
-
-      </div>
-
-    </div>
-
-
-    <div class="field-image">
-
-      <img
-        src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Joda_paintedhills1.jpg"
-        alt="Painted Hills Oregon">
-
-      <div class="field-caption">
-
-        <strong>Earth</strong>
-
-        <span>Color written in geology</span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
   <!-- AUTHENTICATION -->
 
-  <section id="authView" class="hidden">
+  <section
+    id="authView"
+    class="hidden">
 
     <div class="card account-card">
 
@@ -847,10 +975,12 @@ button.secondary{
 
     </div>
 
+
     <div
       id="specimenGrid"
       class="specimens">
     </div>
+
 
     <div
       id="emptyCollection"
@@ -875,7 +1005,9 @@ button.secondary{
 
   <!-- SPECIMEN FORM -->
 
-  <section id="formView" class="hidden">
+  <section
+    id="formView"
+    class="hidden">
 
     <div class="card form-card">
 
@@ -1073,6 +1205,8 @@ button.secondary{
 </main>
 
 
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -1090,16 +1224,26 @@ let authMode='signup';
 let photoFiles=[];
 
 
+/* =========================
+   STARTUP
+========================= */
+
 document.addEventListener(
 'DOMContentLoaded',
 async function(){
 
   await initClient();
+
   await initAuth();
+
   await loadSpecimens();
 
 });
 
+
+/* =========================
+   SUPABASE
+========================= */
 
 async function initClient(){
 
@@ -1134,6 +1278,10 @@ async function initClient(){
 
 }
 
+
+/* =========================
+   AUTH
+========================= */
 
 async function initAuth(){
 
@@ -1181,33 +1329,57 @@ function updateAuthUI(){
       : null;
 
   const userEl=
-    document.getElementById('authUser');
+    document.getElementById(
+      'authUser'
+    );
 
   const signInBtn=
-    document.getElementById('signInBtn');
+    document.getElementById(
+      'signInBtn'
+    );
 
   const signUpBtn=
-    document.getElementById('signUpBtn');
+    document.getElementById(
+      'signUpBtn'
+    );
 
   const signOutBtn=
-    document.getElementById('signOutBtn');
+    document.getElementById(
+      'signOutBtn'
+    );
 
   if(user){
 
     userEl.textContent=
       user.email || '';
 
-    signInBtn.classList.add('hidden');
-    signUpBtn.classList.add('hidden');
-    signOutBtn.classList.remove('hidden');
+    signInBtn.classList.add(
+      'hidden'
+    );
+
+    signUpBtn.classList.add(
+      'hidden'
+    );
+
+    signOutBtn.classList.remove(
+      'hidden'
+    );
 
   }else{
 
     userEl.textContent='';
 
-    signInBtn.classList.remove('hidden');
-    signUpBtn.classList.remove('hidden');
-    signOutBtn.classList.add('hidden');
+    signInBtn.classList.remove(
+      'hidden'
+    );
+
+    signUpBtn.classList.remove(
+      'hidden'
+    );
+
+    signOutBtn.classList.add(
+      'hidden'
+    );
 
   }
 
@@ -1231,24 +1403,29 @@ function showAuth(mode){
 function updateAuthForm(){
 
   const title=
-    document.getElementById('authTitle');
+    document.getElementById(
+      'authTitle'
+    );
 
   const description=
-    document.getElementById('authDescription');
+    document.getElementById(
+      'authDescription'
+    );
 
   const submit=
-    document.getElementById('authSubmit');
+    document.getElementById(
+      'authSubmit'
+    );
 
   const switchBtn=
-    document.getElementById('authSwitch');
+    document.getElementById(
+      'authSwitch'
+    );
 
   const password=
-    document.getElementById('authPassword');
-
-  const message=
-    document.getElementById('authMessage');
-
-  message.textContent='';
+    document.getElementById(
+      'authPassword'
+    );
 
   if(authMode==='signin'){
 
@@ -1258,7 +1435,8 @@ function updateAuthForm(){
     description.textContent=
       'Sign in to access your private specimen collection and add new specimens.';
 
-    submit.textContent='Sign in';
+    submit.textContent=
+      'Sign in';
 
     switchBtn.textContent=
       'Create an account';
@@ -1314,12 +1492,14 @@ async function submitAuth(){
   }
 
   const email=
-    document.getElementById('authEmail')
-      .value.trim();
+    document.getElementById(
+      'authEmail'
+    ).value.trim();
 
   const password=
-    document.getElementById('authPassword')
-      .value;
+    document.getElementById(
+      'authPassword'
+    ).value;
 
   if(!email || !password){
 
@@ -1344,7 +1524,9 @@ async function submitAuth(){
   }
 
   const submit=
-    document.getElementById('authSubmit');
+    document.getElementById(
+      'authSubmit'
+    );
 
   submit.disabled=true;
 
@@ -1356,13 +1538,17 @@ async function submitAuth(){
 
       result=
         await dbClient.auth.signUp({
+
           email:email,
+
           password:password,
+
           options:{
             emailRedirectTo:
               window.location.origin+
               window.location.pathname
           }
+
         });
 
       if(result.error)
@@ -1395,8 +1581,11 @@ async function submitAuth(){
 
       result=
         await dbClient.auth.signInWithPassword({
+
           email:email,
+
           password:password
+
         });
 
       if(result.error)
@@ -1447,10 +1636,15 @@ async function submitAuth(){
 }
 
 
-function setAuthMessage(message,isError){
+function setAuthMessage(
+  message,
+  isError
+){
 
   const el=
-    document.getElementById('authMessage');
+    document.getElementById(
+      'authMessage'
+    );
 
   el.textContent=
     message || '';
@@ -1472,6 +1666,7 @@ async function signOut(){
     await dbClient.auth.signOut();
 
     session=null;
+
     current=null;
 
     updateAuthUI();
@@ -1495,32 +1690,50 @@ async function signOut(){
 }
 
 
+/* =========================
+   NAVIGATION
+========================= */
+
 function show(view){
 
   const auth=
-    document.getElementById('authView');
+    document.getElementById(
+      'authView'
+    );
 
   const list=
-    document.getElementById('listView');
+    document.getElementById(
+      'listView'
+    );
 
   const form=
-    document.getElementById('formView');
+    document.getElementById(
+      'formView'
+    );
 
   auth.classList.add('hidden');
+
   list.classList.add('hidden');
+
   form.classList.add('hidden');
 
   if(view==='auth'){
 
-    auth.classList.remove('hidden');
+    auth.classList.remove(
+      'hidden'
+    );
 
   }else if(view==='form'){
 
-    form.classList.remove('hidden');
+    form.classList.remove(
+      'hidden'
+    );
 
   }else{
 
-    list.classList.remove('hidden');
+    list.classList.remove(
+      'hidden'
+    );
 
   }
 
@@ -1554,14 +1767,25 @@ function requireAuthForNew(){
 }
 
 
-function showStatus(message,isError){
+/* =========================
+   STATUS
+========================= */
+
+function showStatus(
+  message,
+  isError
+){
 
   const el=
-    document.getElementById('status');
+    document.getElementById(
+      'status'
+    );
 
   if(!message){
 
-    el.classList.add('hidden');
+    el.classList.add(
+      'hidden'
+    );
 
     return;
 
@@ -1569,7 +1793,9 @@ function showStatus(message,isError){
 
   el.textContent=message;
 
-  el.classList.remove('hidden');
+  el.classList.remove(
+    'hidden'
+  );
 
   el.classList.toggle(
     'error',
@@ -1579,18 +1805,28 @@ function showStatus(message,isError){
 }
 
 
+/* =========================
+   PHOTOS
+========================= */
+
 function previewPhotos(){
 
   const input=
-    document.getElementById('photoFiles');
+    document.getElementById(
+      'photoFiles'
+    );
 
   const preview=
-    document.getElementById('photoPreview');
+    document.getElementById(
+      'photoPreview'
+    );
 
   preview.innerHTML='';
 
   photoFiles=
-    Array.from(input.files || []);
+    Array.from(
+      input.files || []
+    );
 
   photoFiles.forEach(
     function(file){
@@ -1602,16 +1838,22 @@ function previewPhotos(){
         function(event){
 
           const img=
-            document.createElement('img');
+            document.createElement(
+              'img'
+            );
 
           img.src=
             event.target.result;
 
-          preview.appendChild(img);
+          preview.appendChild(
+            img
+          );
 
         };
 
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(
+        file
+      );
 
     }
   );
@@ -1619,9 +1861,14 @@ function previewPhotos(){
 }
 
 
+/* =========================
+   FORM
+========================= */
+
 function clearForm(){
 
   const ids=[
+
     'specimenName',
     'materialType',
     'color',
@@ -1631,15 +1878,19 @@ function clearForm(){
     'processing',
     'binder',
     'finishedPigment'
+
   ];
 
   ids.forEach(
     function(id){
 
       const el=
-        document.getElementById(id);
+        document.getElementById(
+          id
+        );
 
-      if(el)el.value='';
+      if(el)
+        el.value='';
 
     }
   );
@@ -1679,8 +1930,9 @@ async function saveSpecimen(){
   }
 
   const name=
-    document.getElementById('specimenName')
-      .value.trim();
+    document.getElementById(
+      'specimenName'
+    ).value.trim();
 
   if(!name){
 
@@ -1701,28 +1953,44 @@ async function saveSpecimen(){
     name:name,
 
     material_type:
-      document.getElementById('materialType').value,
+      document.getElementById(
+        'materialType'
+      ).value,
 
     color:
-      document.getElementById('color').value.trim(),
+      document.getElementById(
+        'color'
+      ).value.trim(),
 
     location:
-      document.getElementById('location').value.trim(),
+      document.getElementById(
+        'location'
+      ).value.trim(),
 
     collection_date:
-      document.getElementById('collectionDate').value || null,
+      document.getElementById(
+        'collectionDate'
+      ).value || null,
 
     raw_description:
-      document.getElementById('rawDescription').value.trim(),
+      document.getElementById(
+        'rawDescription'
+      ).value.trim(),
 
     processing:
-      document.getElementById('processing').value.trim(),
+      document.getElementById(
+        'processing'
+      ).value.trim(),
 
     binder:
-      document.getElementById('binder').value.trim(),
+      document.getElementById(
+        'binder'
+      ).value.trim(),
 
     finished_pigment:
-      document.getElementById('finishedPigment').value.trim()
+      document.getElementById(
+        'finishedPigment'
+      ).value.trim()
 
   };
 
@@ -1752,8 +2020,11 @@ async function saveSpecimen(){
 
     setTimeout(
       function(){
+
         show('list');
+
         showStatus('');
+
       },
       700
     );
@@ -1773,6 +2044,10 @@ async function saveSpecimen(){
 }
 
 
+/* =========================
+   LOAD SPECIMENS
+========================= */
+
 async function loadSpecimens(){
 
   const grid=
@@ -1785,13 +2060,16 @@ async function loadSpecimens(){
       'emptyCollection'
     );
 
-  if(!grid || !empty)return;
+  if(!grid || !empty)
+    return;
 
   grid.innerHTML='';
 
   if(!dbClient){
 
-    empty.classList.remove('hidden');
+    empty.classList.remove(
+      'hidden'
+    );
 
     return;
 
@@ -1818,19 +2096,25 @@ async function loadSpecimens(){
 
     if(rows.length===0){
 
-      empty.classList.remove('hidden');
+      empty.classList.remove(
+        'hidden'
+      );
 
       return;
 
     }
 
-    empty.classList.add('hidden');
+    empty.classList.add(
+      'hidden'
+    );
 
     rows.forEach(
       function(specimen){
 
         grid.appendChild(
-          createSpecimenCard(specimen)
+          createSpecimenCard(
+            specimen
+          )
         );
 
       }
@@ -1840,7 +2124,9 @@ async function loadSpecimens(){
 
     console.error(error);
 
-    empty.classList.remove('hidden');
+    empty.classList.remove(
+      'hidden'
+    );
 
     empty.innerHTML=
       '<h3>Collection database</h3>'+
@@ -1856,35 +2142,53 @@ async function loadSpecimens(){
 }
 
 
-function createSpecimenCard(specimen){
+/* =========================
+   SPECIMEN CARD
+========================= */
+
+function createSpecimenCard(
+  specimen
+){
 
   const card=
-    document.createElement('article');
+    document.createElement(
+      'article'
+    );
 
   card.className='specimen';
 
   const image=
-    document.createElement('div');
+    document.createElement(
+      'div'
+    );
 
-  image.className='specimen-image';
+  image.className=
+    'specimen-image';
 
   image.textContent=
     'No specimen photo';
 
   const body=
-    document.createElement('div');
+    document.createElement(
+      'div'
+    );
 
-  body.className='specimen-body';
+  body.className=
+    'specimen-body';
 
   const title=
-    document.createElement('h3');
+    document.createElement(
+      'h3'
+    );
 
   title.textContent=
     specimen.name ||
     'Unnamed specimen';
 
   const meta=
-    document.createElement('div');
+    document.createElement(
+      'div'
+    );
 
   meta.className=
     'specimen-meta';
@@ -1910,7 +2214,9 @@ function createSpecimenCard(specimen){
     pieces.join(' • ');
 
   const description=
-    document.createElement('p');
+    document.createElement(
+      'p'
+    );
 
   description.className='meta';
 
@@ -1919,24 +2225,39 @@ function createSpecimenCard(specimen){
     specimen.raw_description ||
     'No notes added yet.';
 
-  body.appendChild(title);
-  body.appendChild(meta);
-  body.appendChild(description);
+  body.appendChild(
+    title
+  );
+
+  body.appendChild(
+    meta
+  );
+
+  body.appendChild(
+    description
+  );
 
   if(
     session &&
     session.user &&
-    specimen.user_id===session.user.id
+    specimen.user_id===
+      session.user.id
   ){
 
     const actions=
-      document.createElement('div');
+      document.createElement(
+        'div'
+      );
 
     actions.className='row';
-    actions.style.marginTop='12px';
+
+    actions.style.marginTop=
+      '12px';
 
     const deleteButton=
-      document.createElement('button');
+      document.createElement(
+        'button'
+      );
 
     deleteButton.className=
       'secondary';
@@ -1957,19 +2278,32 @@ function createSpecimenCard(specimen){
       deleteButton
     );
 
-    body.appendChild(actions);
+    body.appendChild(
+      actions
+    );
 
   }
 
-  card.appendChild(image);
-  card.appendChild(body);
+  card.appendChild(
+    image
+  );
+
+  card.appendChild(
+    body
+  );
 
   return card;
 
 }
 
 
-async function deleteSpecimen(id){
+/* =========================
+   DELETE
+========================= */
+
+async function deleteSpecimen(
+  id
+){
 
   if(!session || !dbClient)
     return;
@@ -1978,7 +2312,8 @@ async function deleteSpecimen(id){
     !window.confirm(
       'Delete this specimen? This cannot be undone.'
     )
-  )return;
+  )
+    return;
 
   try{
 
