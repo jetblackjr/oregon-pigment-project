@@ -234,7 +234,8 @@ button,
 .green{
   background:var(--green);
 }
-
+<div id="authBar" class="authbar"></div>
+  
 /* MAIN */
 
 main{
@@ -243,6 +244,37 @@ main{
   padding:15px 16px 30px;
 }
 
+  <section id="authView" class="hidden">
+  <div class="card auth-card">
+    <div class="row">
+      <h2 id="authTitle" style="font-family:Georgia,serif;margin:0">Sign in</h2>
+    </div>
+
+    <p class="meta" id="authIntro">
+      Sign in to create and manage your private specimen collection.
+    </p>
+
+    <div class="grid">
+      <div class="full">
+        <label>Email</label>
+        <input id="authEmail" type="email" autocomplete="email">
+      </div>
+
+      <div class="full">
+        <label>Password</label>
+        <input id="authPassword" type="password" autocomplete="current-password">
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <button id="authSubmit" onclick="submitAuth()">Sign in</button>
+      <button class="secondary" onclick="toggleAuthMode()">Create account</button>
+      <button class="secondary" onclick="show('list')">Browse public catalog</button>
+    </div>
+
+    <div id="authStatus" class="notice hidden" style="margin-top:12px"></div>
+  </div>
+</section>
 .toolbar{
   display:flex;
   gap:8px;
